@@ -4,7 +4,7 @@ Aplicación web en español para explorar preferencias políticas y consultar co
 
 ## Contenido
 
-- Portada con tres puntos de partida: «No quiero votar», «No tengo claro mi voto» y «No sé qué votar». La primera opción permite continuar sin realizar un test; la elección no altera ninguna puntuación.
+- Pantalla de elección, accesible desde el dibujo grande o «Elegir cómo empezar», con tres puntos de partida: «No quiero votar», «No tengo claro mi voto» y «No sé qué votar». La primera opción permite continuar sin realizar un test; la elección no altera ninguna puntuación.
 
 - **Test básico:** 20 preguntas generales y una comparación documental provisional con cuatro partidos.
 - **Test avanzado:** 12 preguntas generales y 8 votaciones de la XV Legislatura (selección de 2024–2025), con explicación del trámite que se votaba.

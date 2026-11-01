@@ -103,3 +103,9 @@
 .entry-options { scroll-margin-top: 24px; }
 #entry-title:focus { outline: none; }
 @media(max-width:700px) { .art-caption { bottom: 15px; } }
+
+/* Selector independiente de la portada. */
+.start-screen { max-width: 760px; }
+.start-screen h1 { font-family: Georgia, serif; font-size: clamp(30px, 5vw, 46px); margin: 24px 0; }
+.start-screen .entry-options { max-width: none; }
+.start-screen > .note { margin: 20px 0 28px; }
