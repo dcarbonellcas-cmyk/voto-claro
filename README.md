@@ -6,7 +6,7 @@ Aplicación web en español para explorar preferencias políticas y consultar co
 
 - Pantalla de elección, accesible desde el dibujo grande o «Elegir cómo empezar», con tres puntos de partida: «Tengo claro más o menos, pero quiero especificar mi voto», «No sé qué votar» y «No quiero votar». La última opción permite continuar sin realizar un test; la elección no altera ninguna puntuación.
 
-- **Test básico:** 20 preguntas generales y una comparación documental provisional con cuatro partidos.
+- **Test básico:** 20 preguntas generales, 13 referencias de partidos y porcentajes con un decimal, recuento de coincidencias y cobertura. Solo se muestra porcentaje con 3 respuestas comparables; varias referencias siguen con datos insuficientes.
 - **Test avanzado:** 12 preguntas generales y 8 votaciones de la XV Legislatura (selección de 2024–2025), con explicación del trámite que se votaba.
 - **12 partidos o grupos en el avanzado:** PP, PSOE, VOX, Sumar (grupo parlamentario), Podemos, ERC, Junts, EAJ-PNV, EH Bildu, BNG, Coalición Canaria y UPN.
 - Resultados con fuentes, número de preguntas comparadas y posibilidad de consultar solo las votaciones para utilizar una base común.
@@ -55,7 +55,7 @@ La cobertura de las preguntas generales varía entre partidos; los porcentajes c
 
 **Prototipo provisional.** Los documentos generales incorporados son de 2023–2026 y no equivalen a los programas de unas próximas elecciones. La selección de asuntos no cubre toda la legislatura ni todos los partidos o candidaturas. El filtro territorial sirve para consultar y no comprueba candidaturas por provincia.
 
-La última revisión consignada en la aplicación es del 24 de octubre de 2026 para el test avanzado y del 23 de octubre para las posiciones generales. No existe actualización automática. La publicación del código en GitHub no implica una nueva revisión de los datos.
+La última revisión consignada en la aplicación es del 24 de octubre de 2026 para el test avanzado y del 23 de octubre para las posiciones generales iniciales, ampliadas el 1 de noviembre de 2026. No existe actualización automática. La publicación del código en GitHub no implica una nueva revisión de los datos.
 
 Los textos legales y registros oficiales se enlazan en las preguntas. La descarga de los registros nominales del Congreso devolvió errores de acceso durante la elaboración; las distribuciones por partido se consultaron en las fuentes secundarias enlazadas. **No se ha realizado una auditoría nominal independiente de todos los votos.** Debe completarse esa comprobación antes de presentar el proyecto como una herramienta electoral validada.
 
@@ -76,3 +76,13 @@ El servidor incluido es para desarrollo o despliegue detrás de un servicio HTTP
 ## Privacidad
 
 La aplicación no solicita registro. Las respuestas de los tests no se envían a un servidor. Las opciones de inicio sí se suman a un recuento agregado, con aviso previo visible. Se mantienen en memoria durante la sesión y se borran al recargar o cerrar la página. Los enlaces a fuentes externas conducen a servicios con sus propias políticas.
+
+## Catálogo nacional del básico (01/11/2026)
+
+Se importan 87 denominaciones presentadas al Congreso en las 52 circunscripciones del [BOE de 28/10/2026](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-22607&lang=es). Se incluyen formaciones sin escaños, coaliciones y variantes territoriales. No son 87 partidos distintos ni se afirma que estén definitivamente proclamadas. El catálogo permite buscar por nombre y filtrar por circunscripción. No es el Registro de Partidos Políticos.
+
+`candidacies.js` solo contiene denominaciones y provincias; no nombres de candidatos. Para regenerarlo, descarga el HTML oficial y ejecuta `python3 import-candidacies.py /ruta/al/BOE.html`. La importación valida 52 circunscripciones y conserva coaliciones diferentes sin fusionarlas.
+
+`expanded-positions.js` añade ERC, BNG, EH Bildu, Junts, Podemos, EAJ-PNV, UPN, PACMA y una ficha pendiente de Coalición Canaria. En total hay 13 referencias, pero no todas tienen tres posiciones contrastadas. Las copias de programas alojadas en Newtral y Betevé se identifican expresamente. Podemos usa un programa europeo de 2024, sin presentarlo como programa de generales. Las candidaturas distintas no heredan datos de sus partidos integrantes.
+
+Los decimales detallan el cálculo y no aumentan su validez. Por ejemplo, 2 coincidencias de 3 respuestas comparables se muestran como 66,7 %, con cobertura de 3/20 (15,0 %). Una referencia sin datos nunca obtiene 0 % de afinidad. La comparación pendiente sigue siendo trabajo documental por completar.

@@ -7,5 +7,7 @@ function calculateMatch(answers,positions){
   if(answers[i]===p.answer)matches++;else differences++;
  }
  const comparable=matches+differences;
- return {matches,differences,comparable,unverified,skipped,percent:comparable>=3?Math.round(matches/comparable*100):null};
+ return {matches,differences,comparable,unverified,skipped,percent:comparable>=3?Math.round(matches/comparable*1000)/10:null};
 }
+
+function formatPercent(value){return value.toLocaleString("es-ES",{minimumFractionDigits:1,maximumFractionDigits:1})}
