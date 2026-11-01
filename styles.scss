@@ -94,3 +94,12 @@
 .participation-row { margin: 24px 0; }
 .participation-row > div:first-child { display: flex; gap: 15px; justify-content: space-between; flex-wrap: wrap; font-size: 15px; }
 .participation-row .match-bar { margin-top: 10px; }
+
+/* El dibujo es un enlace accesible al selector de inicio. */
+.start-art-link { text-decoration: none; color: inherit; cursor: pointer; }
+.art-caption { position: absolute; bottom: 30px; font-size: 12px; letter-spacing: 2px; }
+.start-art-link:hover { background: #e5e0f8; }
+.start-art-link:focus-visible { outline: 3px solid #9463de; outline-offset: 5px; }
+.entry-options { scroll-margin-top: 24px; }
+#entry-title:focus { outline: none; }
+@media(max-width:700px) { .art-caption { bottom: 15px; } }
