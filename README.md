@@ -6,7 +6,7 @@ Aplicación web en español para explorar preferencias políticas y consultar co
 
 - Pantalla de elección, accesible desde el dibujo grande o «Elegir cómo empezar», con tres puntos de partida: «Tengo claro más o menos, pero quiero especificar mi voto», «No sé qué votar» y «No quiero votar». La última opción permite continuar sin realizar un test; la elección no altera ninguna puntuación.
 
-- **Test básico:** 20 preguntas generales, 13 referencias de partidos y porcentajes con un decimal, recuento de coincidencias y cobertura. Solo se muestra porcentaje con 3 respuestas comparables; varias referencias siguen con datos insuficientes.
+- **Test básico:** 20 preguntas generales, 13 referencias de partidos y porcentajes con un decimal, recuento de coincidencias y cobertura. Solo se muestra porcentaje con al menos una respuesta comparable; varias referencias siguen con datos insuficientes.
 - **Test avanzado:** 12 preguntas generales y 8 votaciones de la XV Legislatura (selección de 2024–2025), con explicación del trámite que se votaba.
 - **12 partidos o grupos en el avanzado:** PP, PSOE, VOX, Sumar (grupo parlamentario), Podemos, ERC, Junts, EAJ-PNV, EH Bildu, BNG, Coalición Canaria y UPN.
 - Resultados con fuentes, número de preguntas comparadas y posibilidad de consultar solo las votaciones para utilizar una base común.
@@ -45,9 +45,9 @@ Actualmente el SCSS contiene únicamente sintaxis compatible con CSS y el script
 
 ## Cómo se calculan los resultados
 
-El porcentaje es el número de coincidencias exactas dividido entre el número de respuestas comparables, multiplicado por 100. Se requieren al menos tres preguntas comparables; este umbral es una decisión del prototipo y no una validación estadística.
+El porcentaje es el número de coincidencias exactas dividido entre las 20 preguntas, multiplicado por 100. El denominador es 20 en ambos tests; cada coincidencia suma 5 puntos.
 
-En las votaciones, una abstención es una posición independiente y solo coincide con una abstención documentada. «No lo sé / Saltar» queda fuera del cálculo. Las ausencias o datos no localizados no se convierten en abstenciones. En las preguntas generales, la neutralidad se excluye porque la base documental no la clasifica.
+En las votaciones, una abstención es una posición independiente y solo coincide con una abstención documentada. «No lo sé / Saltar» no suma coincidencias y permanece en el denominador de 20. Las ausencias o datos no localizados no se convierten en abstenciones. En las preguntas generales, la neutralidad no suma porque la base documental no la clasifica; permanece en el denominador de 20.
 
 La cobertura de las preguntas generales varía entre partidos; los porcentajes combinados no deben ordenarse como un ranking. La opción «Solo votaciones» limita la comparación a los mismos ocho asuntos.
 
@@ -83,6 +83,10 @@ Se importan 87 denominaciones presentadas al Congreso en las 52 circunscripcione
 
 `candidacies.js` solo contiene denominaciones y provincias; no nombres de candidatos. Para regenerarlo, descarga el HTML oficial y ejecuta `python3 import-candidacies.py /ruta/al/BOE.html`. La importación valida 52 circunscripciones y conserva coaliciones diferentes sin fusionarlas.
 
-`expanded-positions.js` añade ERC, BNG, EH Bildu, Junts, Podemos, EAJ-PNV, UPN, PACMA y una ficha pendiente de Coalición Canaria. En total hay 13 referencias, pero no todas tienen tres posiciones contrastadas. Las copias de programas alojadas en Newtral y Betevé se identifican expresamente. Podemos usa un programa europeo de 2024, sin presentarlo como programa de generales. Las candidaturas distintas no heredan datos de sus partidos integrantes.
+`expanded-positions.js` añade ERC, BNG, EH Bildu, Junts, Podemos, EAJ-PNV, UPN, PACMA y una ficha pendiente de Coalición Canaria. En total hay 13 referencias, pero no todas tienen posiciones contrastadas. Las copias de programas alojadas en Newtral y Betevé se identifican expresamente. Podemos usa un programa europeo de 2024, sin presentarlo como programa de generales. Las candidaturas distintas no heredan datos de sus partidos integrantes.
 
-Los decimales detallan el cálculo y no aumentan su validez. Por ejemplo, 2 coincidencias de 3 respuestas comparables se muestran como 66,7 %, con cobertura de 3/20 (15,0 %). Una referencia sin datos nunca obtiene 0 % de afinidad. La comparación pendiente sigue siendo trabajo documental por completar.
+Los decimales detallan el cálculo y no aumentan su validez. Por ejemplo, 2 coincidencias se muestran como 10,0 % sobre las 20 preguntas; si hay 3 comparables, la cobertura es 3/20 (15,0 %). Una referencia sin datos nunca obtiene 0 % de afinidad. La comparación pendiente sigue siendo trabajo documental por completar.
+
+## Puntuación sobre el test completo (01/11/2026)
+
+En ambos tests el denominador es siempre 20: cada coincidencia suma 5 puntos. 20/20 = 100 %, 15/20 = 75 %, 3/20 = 15 %. Esto sustituye el cálculo anterior entre respuestas comparables y el mínimo anterior de tres. Si no hay ninguna respuesta comparable se muestra «Sin porcentaje». Las respuestas omitidas, neutrales generales y posiciones ausentes no suman y permanecen en el denominador; no se etiquetan como desacuerdos. La cobertura se muestra aparte. Un partido con menos documentación tiene un techo de puntuación menor; la cifra no estima sus posiciones desconocidas. En el avanzado, «Solo votaciones» mantiene la base de 20 y puede sumar como máximo 40 %.
