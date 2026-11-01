@@ -109,3 +109,11 @@
 .start-screen h1 { font-family: Georgia, serif; font-size: clamp(30px, 5vw, 46px); margin: 24px 0; }
 .start-screen .entry-options { max-width: none; }
 .start-screen > .note { margin: 20px 0 28px; }
+
+/* Portada: título horizontal arriba e ilustración de acceso debajo. */
+.hero-stacked { display: flex; flex-direction: column; gap: 34px; align-items: center; }
+.hero-stacked .hero-heading { width: 100%; text-align: center; }
+.hero-stacked h1 { max-width: 1100px; margin: 22px auto; text-wrap: balance; }
+.hero-stacked .lead { max-width: none; margin: 0 auto; }
+.hero-stacked .start-art-link { width: min(100%, 520px); min-height: 390px; }
+@media(max-width:700px) { .hero-stacked { gap: 28px; } .hero-stacked .start-art-link { min-height: 300px; } }
