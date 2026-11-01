@@ -1,6 +1,6 @@
 /* Solo recuentos agregados: no se envían respuestas a los tests ni identificadores. */
 const Participation = (()=>{
- const labels={not_voting:'No quiero votar',undecided:'No tengo claro mi voto',dont_know:'No sé qué votar'};
+ const labels={not_voting:'No quiero votar',undecided:'Tengo claro más o menos, pero quiero especificar mi voto',dont_know:'No sé qué votar'};
  const key='voto-claro-participation-counted';
  let counted=false,busy=false;
  try{counted=sessionStorage.getItem(key)==='1'}catch{}
