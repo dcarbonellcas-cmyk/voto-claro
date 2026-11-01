@@ -14,10 +14,10 @@ Aplicación web en español para explorar preferencias políticas y consultar co
 
 ## Ejecutar
 
-No requiere instalación de paquetes ni un servidor de aplicaciones. Abre `index.html` en un navegador o inicia un servidor estático desde esta carpeta:
+Los tests pueden abrirse como archivos estáticos. Para guardar y consultar estadísticas compartidas de las opciones de inicio, ejecuta el servidor incluido (Python 3, sin paquetes externos):
 
 ```sh
-python3 -m http.server 8080
+python3 server.py --port 8080
 ```
 
 Después abre `http://localhost:8080`. El test avanzado está en `avanzado.html`.
@@ -63,6 +63,16 @@ Un voto sobre la tramitación o sobre un paquete legislativo no se interpreta co
 
 Los porcentajes describen coincidencias dentro de esta muestra; no representan una probabilidad, una afinidad ideológica completa ni una recomendación de voto.
 
+## Estadísticas de las opciones de inicio
+
+Al seleccionar una de las tres opciones, el navegador envía únicamente su categoría a `POST /api/participation`. `GET /api/participation` devuelve los tres totales y su suma. La página «Ver estadísticas» muestra los recuentos y porcentajes reales, incluidos los ceros iniciales.
+
+El servidor guarda únicamente tres contadores en `.data/participation.sqlite3`. No guarda filas individuales, marcas de tiempo, nombres, correos, direcciones IP, identificadores ni respuestas a los tests. La base no se sirve por HTTP ni se publica en GitHub. Una marca booleana en `sessionStorage` evita repetir el registro en la misma pestaña; no identifica personas y no impide que otra sesión vuelva a responder. Se cuentan respuestas, no visitantes únicos ni una muestra representativa. Las opciones de duda no significan que una persona vaya a votar.
+
+Los contadores persisten tras reiniciar el servidor. Se puede elegir una ubicación con `VOTO_CLARO_DB`. Para compartir el recuento entre visitantes, debe desplegarse este servidor con almacenamiento persistente y servir la app desde el mismo origen. **GitHub aloja el código; GitHub Pages por sí solo no ejecuta esta API.** En una versión solo estática, la app informa de la indisponibilidad y no simula una estadística global usando datos del navegador.
+
+El servidor incluido es para desarrollo o despliegue detrás de un servicio HTTPS. No incorpora protección contra respuestas automatizadas; no debe presentarse como una encuesta verificada.
+
 ## Privacidad
 
-La aplicación no solicita registro y no envía las respuestas a un servidor. Se mantienen en memoria durante la sesión y se borran al recargar o cerrar la página. Los enlaces a fuentes externas conducen a servicios con sus propias políticas.
+La aplicación no solicita registro. Las respuestas de los tests no se envían a un servidor. Las opciones de inicio sí se suman a un recuento agregado, con aviso previo visible. Se mantienen en memoria durante la sesión y se borran al recargar o cerrar la página. Los enlaces a fuentes externas conducen a servicios con sus propias políticas.
