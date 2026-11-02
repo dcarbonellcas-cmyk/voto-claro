@@ -16,7 +16,7 @@ const ADVANCED_PARTIES=[
 {id:'CC',name:'Coalición Canaria',region:'Canarias'},
 {id:'UPN',name:'UPN',region:'Navarra'}
 ];
-const BASIC_SELECTION=[0,2,3,7,8,9,11,12,13,14,17,18];
+const BASIC_SELECTION=[0,2,3,7,8,9,11,12,13,14,17,18,20,21,22,23,24,25,26,27,28,29];
 const RECORD_BASE='https://www.congreso.es/webpublica/opendata/votaciones/Leg15/';
 const VOTE_SOURCE='https://queproponen.es/votaciones';
 const ALL_YES={PP:0,PSOE:0,VOX:0,Sumar:0,Podemos:0,ERC:0,Junts:0,PNV:0,Bildu:0,BNG:0,CC:0,UPN:0};

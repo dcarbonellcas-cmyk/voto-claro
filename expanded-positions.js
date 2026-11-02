@@ -48,3 +48,10 @@ PARTIES.push(
  {name:'Coalición Canaria',period:'Posiciones generales pendientes de documentar',positions:positions([])}
 );
 PARTIES.sort((a,b)=>a.name.localeCompare(b.name,'es'));
+
+// Nuevas preguntas: evidencia literal localizada en el programa de generales de BNG 2023.
+for(const [index,page,reason] of [
+ [20,32,'Propone educación pública gratuita de 0 a 18 años, incluida la etapa de 0 a 3.'],
+ [26,19,'Reclama el cumplimiento de la financiación pública del sistema de dependencia.'],
+ [27,63,'Propone garantizar la remuneración de las prácticas y evitar que sustituyan puestos de trabajo.']
+])PARTIES.find(p=>p.name==='BNG').positions[index]=evidence(0,reason,EXTRA_DOCUMENTS.BNG+'#page='+page,'BNG · generales 2023 · página PDF '+page);

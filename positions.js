@@ -2,7 +2,7 @@
 // Clasificación editorial conservadora: no se deducen posturas por ideología.
 const SOURCE_URLS={pp:'https://www.pp.es/wp-content/uploads/2023/07/programa_electoral_pp_23j_feijoo_2023.pdf',psoe:'https://www.psoe.es/media-content/2023/07/PROGRAMA_ELECTORAL-GENERALES-2023.pdf',sumar:'https://movimientosumar.es/wp-content/uploads/2023/07/Un-Programa-para-ti.pdf',sumarWeb:'https://movimientosumar.es/programa-electoral-23j/',vox:'https://www.voxespana.es/wp-content/uploads/2025/10/Programa-WEB-021025.pdf'};
 function evidence(answer,reason,url,source){return {answer,reason,url,source}}
-function positions(entries){const result=Array(20).fill(null);for(const [index,value] of entries)result[index]=value;return result}
+function positions(entries){const result=Array(questions.length).fill(null);for(const [index,value] of entries)result[index]=value;return result}
 const PARTIES=[
 {name:'PP',period:'Programa 2023 y declaración 2026',positions:positions([
 [3,evidence(0,'Defiende el pago de las subidas salariales a los docentes de la concertada. Interpretamos respaldo a su financiación pública; no es un programa nacional de 2026.','https://www.pp.es/actualidad/articulos/el-pp-denuncia-el-abandono-de-la-educacion-concertada-en-ceuta-y-melilla-el-gobierno-debe-a-los-profesores-las-subidas-salariales-desde-2024/','PP · declaración del 26/05/2026 · Ceuta y Melilla')],

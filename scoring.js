@@ -12,4 +12,4 @@ function calculateMatch(answers,positions){
 
 function formatPercent(value){return value.toLocaleString("es-ES",{minimumFractionDigits:1,maximumFractionDigits:1})}
 
-function fixedTestPercent(matches,total=20){return total>0?Math.round(matches/total*1000)/10:0}
+function fixedTestPercent(matches,total=questions.length){return total>0?Math.round(matches/total*1000)/10:0}

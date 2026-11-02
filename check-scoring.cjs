@@ -1,0 +1,21 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const context=vm.createContext({document:{getElementById:()=>({})},clearTimeout,setTimeout});
+for(const file of ['questions.js','positions.js','expanded-positions.js','scoring.js','advanced-data.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context);
+vm.runInContext(`
+if(questions.length!==30)throw Error('El básico debe tener 30 preguntas');
+if(BASIC_SELECTION.length+PARLIAMENT_QUESTIONS.length!==30)throw Error('El avanzado debe tener 30 preguntas');
+if(PARTIES.some(p=>p.positions.length!==30))throw Error('Posiciones desalineadas');
+const fixturePositions=Array.from({length:30},()=>({answer:0,url:'https://example.org',source:'Fixture'}));
+if(calculateMatch(Array(30).fill(0),fixturePositions).percent!==100)throw Error('30/30');
+if(calculateMatch([...Array(15).fill(0),...Array(15).fill(1)],fixturePositions).percent!==50)throw Error('15/30');
+if(fixedTestPercent(1,30)!==3.3)throw Error('1/30');
+if(calculateMatch(Array(30).fill(0),Array(30).fill(null)).percent!==null)throw Error('Falta evidencia');
+PARTIES.push({name:'Fixture',positions:fixturePositions});
+PARLIAMENT_QUESTIONS.forEach(q=>q.votes.Fixture=0);
+`,context);
+const source=fs.readFileSync('advanced.js','utf8').replace('intro();\n})();','globalThis.testing={calculate,setAnswers:a=>{answers=a}};\n})();');
+vm.runInContext(source,context);
+context.testing.setAnswers(Array(30).fill(0));assert.equal(context.testing.calculate({id:'Fixture'},'all').percent,100);
+context.testing.setAnswers([...Array(15).fill(0),...Array(15).fill(1)]);assert.equal(context.testing.calculate({id:'Fixture'},'all').percent,50);
+context.testing.setAnswers(Array(30).fill(0));assert.equal(context.testing.calculate({id:'Fixture'},'votes').percent,26.7);
+console.log('Ambos tests: 30 preguntas; 30/30=100%, 15/30=50%, solo ocho votaciones=26,7%.');

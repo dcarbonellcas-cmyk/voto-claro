@@ -1,92 +1,62 @@
 # Voto Claro
 
-Aplicación web en español para explorar preferencias políticas y consultar coincidencias documentadas con propuestas y votaciones del Congreso de los Diputados de España.
+Aplicación en español para explorar preferencias políticas, comparar documentos y consultar votaciones históricas del Congreso. Prototipo provisional, sin recomendación de voto.
 
-## Contenido
+## Tests y resultados
 
-- Pantalla de elección, accesible desde el dibujo grande o «Elegir cómo empezar», con tres puntos de partida: «Tengo claro más o menos, pero quiero especificar mi voto», «No sé qué votar» y «No quiero votar». La última opción permite continuar sin realizar un test; la elección no altera ninguna puntuación.
-
-- **Test básico:** 20 preguntas generales, 13 referencias de partidos y porcentajes con un decimal, recuento de coincidencias y cobertura. Solo se muestra porcentaje con al menos una respuesta comparable; varias referencias siguen con datos insuficientes.
-- **Test avanzado:** 12 preguntas generales y 8 votaciones de la XV Legislatura (selección de 2024–2025), con explicación del trámite que se votaba.
-- **12 partidos o grupos en el avanzado:** PP, PSOE, VOX, Sumar (grupo parlamentario), Podemos, ERC, Junts, EAJ-PNV, EH Bildu, BNG, Coalición Canaria y UPN.
-- Resultados con fuentes, número de preguntas comparadas y posibilidad de consultar solo las votaciones para utilizar una base común.
-- Estética en azul y morado, logo SVG y fuente de estilos en SCSS.
+- Básico: 30 preguntas generales. Conserva las 20 anteriores y añade educación infantil, becas, tamaño de las clases, integración lingüística, asilo, ayudas de ingresos mínimos, dependencia, prácticas remuneradas, inspección laboral y emancipación juvenil.
+- Avanzado: 22 preguntas generales y 8 votaciones de la XV Legislatura (selección de 2024–2025). Las leyes incluyen contexto y fuentes.
+- Puntuación: coincidencias documentadas / 30 × 100, con un decimal. 30/30 = 100 %, 15/30 = 50 %. Cada coincidencia pesa exactamente 100/30; no se suman puntos redondeados. Los datos ausentes y las respuestas sin opinión no suman, pero no se etiquetan como desacuerdos. Si no hay ninguna respuesta comparable, no hay porcentaje. En el avanzado, «Solo votaciones» mantiene la base de 30 y su máximo es 26,7 %.
+- Tabla comparativa visible al terminar, incluso si se ocultan las tarjetas provisionales. El informe del avanzado usa el test completo aunque se filtre la vista de tarjetas.
+- Básico: 13 referencias de partidos; avanzado: 12 referencias parlamentarias. No todas tienen la misma cobertura. Algunas fichas carecen de posiciones generales suficientes.
+- Catálogo al final de ambos tests: 87 denominaciones presentadas al Congreso en las 52 circunscripciones del [BOE de 28/10/2026](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-22607&lang=es). Incluye Compromís, Frente Amplio, formaciones sin escaños, coaliciones y variantes territoriales. No son 87 partidos diferentes ni se afirma su proclamación definitiva. Buscador por nombre, provincia y datos pendientes. Las coaliciones nuevas no heredan posiciones de sus integrantes.
 
 ## Ejecutar
 
-Los tests pueden abrirse como archivos estáticos. Para guardar y consultar estadísticas compartidas de las opciones de inicio, ejecuta el servidor incluido (Python 3, sin paquetes externos):
+Python 3, sin paquetes externos:
 
 ```sh
-python3 server.py --port 8080
+python3 -B server.py --port 8089
 ```
 
-Después abre `http://localhost:8080`. El test avanzado está en `avanzado.html`.
+Abre http://127.0.0.1:8089/index.html. El código en GitHub no supone un despliegue público: GitHub Pages no ejecuta las estadísticas ni el correo de este servidor.
 
-## Estilos
+## Envío automático de resultados
 
-Edita `styles.scss` y ejecuta:
+Cada visitante puede escribir su propia dirección y autorizar un envío único de la tabla de resultados políticos. No necesita enviar él mismo el mensaje. El servidor entrega una versión HTML y texto al proveedor SMTP, que realiza la entrega. La interfaz confirma la aceptación por el proveedor, no garantiza llegada a la bandeja principal.
+
+**Estado: integración implementada; envío real pendiente de configurar un servicio remitente.** La aplicación no muestra envíos ficticios. `GET /api/email-status` indica si está configurado y el botón permanece desactivado si no lo está.
+
+Configura estas variables en el entorno del proceso del servidor y reinícialo:
+
+- `VOTO_SMTP_HOST`: servidor del proveedor.
+- `VOTO_SMTP_PORT`: 587 (STARTTLS obligatorio) o 465 (TLS desde la conexión).
+- `VOTO_SMTP_USER` y `VOTO_SMTP_PASSWORD`: credenciales del servicio.
+- `VOTO_SMTP_FROM`: dirección remitente autorizada por ese proveedor.
+
+`.env.example` es solo una plantilla sin secretos; no se carga automáticamente. No publiques credenciales. `POST /api/email-results` valida origen, tamaño, consentimiento, dirección y recuentos; vuelve a calcular el porcentaje antes de generar el correo. Usa un límite global de un envío cada 10 segundos y TLS con verificación de certificados. Esto es una implementación de desarrollo: no incluye cuentas verificadas de visitantes ni confirma la propiedad de la dirección introducida.
+
+No se guardan direcciones ni resultados en SQLite ni en archivos. El correo y la tabla se procesan en memoria para enviarlos. El proveedor remitente y el destinatario conservan los datos según sus condiciones. No hay suscripción publicitaria. Las respuestas individuales no se incluyen en el correo. Sin proveedor configurado no se ha realizado una prueba de entrega real; las pruebas de SMTP utilizan un transporte simulado.
+
+## Fuentes y límites
+
+Documentos de 2023–2026, no programas confirmados de próximas elecciones. `positions.js` contiene la selección inicial y `expanded-positions.js` la ampliación. Las copias originales alojadas en Newtral y Betevé se identifican. Podemos usa un programa europeo de 2024. La ampliación a 30 preguntas incorpora tres posiciones adicionales de BNG localizadas en su programa de generales de 2023 (páginas PDF 19, 32 y 63); las demás casillas nuevas permanecen sin dato mientras no se verifiquen. No se rellenan por ideología.
+
+La documentación varía entre partidos: con menos datos, su techo de puntuación es menor. Los porcentajes no estiman posiciones desconocidas, no son probabilidades y no constituyen un ranking global. Las votaciones tienen fuentes secundarias identificadas: no se ha completado una auditoría nominal independiente de todos los votos. Abstención parlamentaria, ausencia y respuesta sin opinión no se equiparan. La selección de asuntos es editorial y no abarca toda la legislatura.
+
+`candidacies.js` solo contiene denominaciones y circunscripciones, sin nombres de candidatos. Para regenerarlo desde el HTML oficial: `python3 import-candidacies.py /ruta/BOE.html`.
+
+## Estadísticas y privacidad
+
+Las tres opciones de inicio suman contadores agregados con aviso previo. `GET/POST /api/participation` consultan o aumentan esos totales en `.data/participation.sqlite3`. No se guardan filas individuales, nombres, IP, correos, marcas de tiempo ni respuestas a tests en esa base. Una marca de sesión limita duplicados en la misma pestaña; no verifica personas únicas. Las elecciones iniciales no alteran la puntuación. La base no se publica ni se sirve por HTTP. Los tests mantienen sus respuestas en memoria y se pierden al recargar o cerrar.
+
+## Estilos y comprobaciones
+
+Edita `styles.scss` y ejecuta `node build-styles.mjs`. El SCSS actual usa sintaxis compatible con CSS y el script la sincroniza; no es un compilador Sass.
 
 ```sh
-node build-styles.mjs
+node check-scoring.cjs
+python3 -B -m unittest test_mailer -v
 ```
 
-Actualmente el SCSS contiene únicamente sintaxis compatible con CSS y el script sincroniza el archivo que carga el navegador. No es un compilador Sass: si se introducen variables `$`, anidación u otras funciones de Sass, será necesario añadir su compilación.
-
-## Archivos
-
-- `index.html`, `app.js`: portada y test básico.
-- `avanzado.html`, `advanced.js`: presentación, preguntas y resultados del test avanzado.
-- `questions.js`: preguntas generales compartidas.
-- `positions.js`: posiciones documentales provisionales del test básico.
-- `advanced-data.js`: partidos, explicaciones, fechas, fuentes y votos históricos del test avanzado.
-- `scoring.js`: cálculo del test básico.
-- `styles.scss`, `styles.css`, `build-styles.mjs`: estilos y sincronización.
-- `logo.svg`: identidad visual.
-
-## Cómo se calculan los resultados
-
-El porcentaje es el número de coincidencias exactas dividido entre las 20 preguntas, multiplicado por 100. El denominador es 20 en ambos tests; cada coincidencia suma 5 puntos.
-
-En las votaciones, una abstención es una posición independiente y solo coincide con una abstención documentada. «No lo sé / Saltar» no suma coincidencias y permanece en el denominador de 20. Las ausencias o datos no localizados no se convierten en abstenciones. En las preguntas generales, la neutralidad no suma porque la base documental no la clasifica; permanece en el denominador de 20.
-
-La cobertura de las preguntas generales varía entre partidos; los porcentajes combinados no deben ordenarse como un ranking. La opción «Solo votaciones» limita la comparación a los mismos ocho asuntos.
-
-## Estado de los datos y límites
-
-**Prototipo provisional.** Los documentos generales incorporados son de 2023–2026 y no equivalen a los programas de unas próximas elecciones. La selección de asuntos no cubre toda la legislatura ni todos los partidos o candidaturas. El filtro territorial sirve para consultar y no comprueba candidaturas por provincia.
-
-La última revisión consignada en la aplicación es del 24 de octubre de 2026 para el test avanzado y del 23 de octubre para las posiciones generales iniciales, ampliadas el 1 de noviembre de 2026. No existe actualización automática. La publicación del código en GitHub no implica una nueva revisión de los datos.
-
-Los textos legales y registros oficiales se enlazan en las preguntas. La descarga de los registros nominales del Congreso devolvió errores de acceso durante la elaboración; las distribuciones por partido se consultaron en las fuentes secundarias enlazadas. **No se ha realizado una auditoría nominal independiente de todos los votos.** Debe completarse esa comprobación antes de presentar el proyecto como una herramienta electoral validada.
-
-Un voto sobre la tramitación o sobre un paquete legislativo no se interpreta como una opinión sobre cada medida individual. En la pregunta de jornada laboral se reproduce la votación de devolución del proyecto al Gobierno, sin invertir su significado.
-
-Los porcentajes describen coincidencias dentro de esta muestra; no representan una probabilidad, una afinidad ideológica completa ni una recomendación de voto.
-
-## Estadísticas de las opciones de inicio
-
-Al seleccionar una de las tres opciones, el navegador envía únicamente su categoría a `POST /api/participation`. `GET /api/participation` devuelve los tres totales y su suma. La página «Ver estadísticas» muestra los recuentos y porcentajes reales, incluidos los ceros iniciales.
-
-El servidor guarda únicamente tres contadores en `.data/participation.sqlite3`. No guarda filas individuales, marcas de tiempo, nombres, correos, direcciones IP, identificadores ni respuestas a los tests. La base no se sirve por HTTP ni se publica en GitHub. Una marca booleana en `sessionStorage` evita repetir el registro en la misma pestaña; no identifica personas y no impide que otra sesión vuelva a responder. Se cuentan respuestas, no visitantes únicos ni una muestra representativa. Las opciones de duda no significan que una persona vaya a votar.
-
-Los contadores persisten tras reiniciar el servidor. Se puede elegir una ubicación con `VOTO_CLARO_DB`. Para compartir el recuento entre visitantes, debe desplegarse este servidor con almacenamiento persistente y servir la app desde el mismo origen. **GitHub aloja el código; GitHub Pages por sí solo no ejecuta esta API.** En una versión solo estática, la app informa de la indisponibilidad y no simula una estadística global usando datos del navegador.
-
-El servidor incluido es para desarrollo o despliegue detrás de un servicio HTTPS. No incorpora protección contra respuestas automatizadas; no debe presentarse como una encuesta verificada.
-
-## Privacidad
-
-La aplicación no solicita registro. Las respuestas de los tests no se envían a un servidor. Las opciones de inicio sí se suman a un recuento agregado, con aviso previo visible. Se mantienen en memoria durante la sesión y se borran al recargar o cerrar la página. Los enlaces a fuentes externas conducen a servicios con sus propias políticas.
-
-## Catálogo nacional del básico (01/11/2026)
-
-Se importan 87 denominaciones presentadas al Congreso en las 52 circunscripciones del [BOE de 28/10/2026](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-22607&lang=es). Se incluyen formaciones sin escaños, coaliciones y variantes territoriales. No son 87 partidos distintos ni se afirma que estén definitivamente proclamadas. El catálogo permite buscar por nombre y filtrar por circunscripción. No es el Registro de Partidos Políticos.
-
-`candidacies.js` solo contiene denominaciones y provincias; no nombres de candidatos. Para regenerarlo, descarga el HTML oficial y ejecuta `python3 import-candidacies.py /ruta/al/BOE.html`. La importación valida 52 circunscripciones y conserva coaliciones diferentes sin fusionarlas.
-
-`expanded-positions.js` añade ERC, BNG, EH Bildu, Junts, Podemos, EAJ-PNV, UPN, PACMA y una ficha pendiente de Coalición Canaria. En total hay 13 referencias, pero no todas tienen posiciones contrastadas. Las copias de programas alojadas en Newtral y Betevé se identifican expresamente. Podemos usa un programa europeo de 2024, sin presentarlo como programa de generales. Las candidaturas distintas no heredan datos de sus partidos integrantes.
-
-Los decimales detallan el cálculo y no aumentan su validez. Por ejemplo, 2 coincidencias se muestran como 10,0 % sobre las 20 preguntas; si hay 3 comparables, la cobertura es 3/20 (15,0 %). Una referencia sin datos nunca obtiene 0 % de afinidad. La comparación pendiente sigue siendo trabajo documental por completar.
-
-## Puntuación sobre el test completo (01/11/2026)
-
-En ambos tests el denominador es siempre 20: cada coincidencia suma 5 puntos. 20/20 = 100 %, 15/20 = 75 %, 3/20 = 15 %. Esto sustituye el cálculo anterior entre respuestas comparables y el mínimo anterior de tres. Si no hay ninguna respuesta comparable se muestra «Sin porcentaje». Las respuestas omitidas, neutrales generales y posiciones ausentes no suman y permanecen en el denominador; no se etiquetan como desacuerdos. La cobertura se muestra aparte. Un partido con menos documentación tiene un techo de puntuación menor; la cifra no estima sus posiciones desconocidas. En el avanzado, «Solo votaciones» mantiene la base de 20 y puede sumar como máximo 40 %.
+Se comprueban 30/30, 15/30, la base fija del avanzado, consentimiento, validación del correo, escape de HTML, fallo por falta de configuración, transporte TLS simulado y limitación de envíos. El servidor incluido debe desplegarse detrás de HTTPS para uso por internet.

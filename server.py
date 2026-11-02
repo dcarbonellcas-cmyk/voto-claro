@@ -3,6 +3,8 @@ import argparse
 import json
 import os
 import sqlite3
+import smtplib
+from mailer import ResultMailer, MailUnavailable, MailBusy
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse
@@ -49,6 +51,8 @@ class Handler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         path = urlparse(self.path).path
+        if path == '/api/email-status':
+            return self.send_json({'available': self.server.mailer.available})
         if path == '/api/participation':
             return self.send_json(self.server.statistics.snapshot())
         # Servir solo recursos de la app, nunca la base de datos o el servidor.
@@ -64,7 +68,30 @@ class Handler(SimpleHTTPRequestHandler):
             return self.send_error(404)
         super().do_HEAD()
 
+    def email_results(self):
+        origin = self.headers.get('Origin')
+        if not origin or urlparse(origin).netloc != self.headers.get('Host'):
+            return self.send_json({'error': 'Origen no permitido'}, 403)
+        try:
+            size = int(self.headers.get('Content-Length', '0'))
+            if not 0 < size <= 32768 or self.headers.get('Content-Type', '').split(';')[0] != 'application/json':
+                return self.send_json({'error': 'Solicitud no válida'}, 400)
+            payload = json.loads(self.rfile.read(size))
+            self.server.mailer.send(payload)
+            return self.send_json({'sent': True})
+        except MailBusy as error:
+            return self.send_json({'error': str(error)}, 429)
+        except MailUnavailable as error:
+            return self.send_json({'error': str(error)}, 503)
+        except (ValueError, TypeError, UnicodeDecodeError):
+            return self.send_json({'error': 'Revisa el correo, el consentimiento y la tabla de resultados.'}, 400)
+        except (smtplib.SMTPException, OSError):
+            # No registrar destinatarios, resultados ni datos del proveedor.
+            return self.send_json({'error': 'No se ha podido confirmar el envío con el proveedor. Inténtalo más tarde.'}, 502)
+
     def do_POST(self):
+        if urlparse(self.path).path == '/api/email-results':
+            return self.email_results()
         if urlparse(self.path).path != '/api/participation':
             return self.send_json({'error': 'Ruta no disponible'}, 404)
         origin = self.headers.get('Origin')
@@ -88,6 +115,7 @@ def main():
     args = parser.parse_args()
     db = os.environ.get('VOTO_CLARO_DB', str(ROOT / '.data' / 'participation.sqlite3'))
     server = ThreadingHTTPServer((args.host, args.port), Handler)
+    server.mailer = ResultMailer()
     server.statistics = Statistics(db)
     print(f'Voto Claro: http://{args.host}:{args.port}', flush=True)
     try:
