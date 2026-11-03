@@ -7,7 +7,6 @@ Aplicación en español para explorar preferencias políticas, comparar document
 - Básico: 30 preguntas generales. Conserva las 20 anteriores y añade educación infantil, becas, tamaño de las clases, integración lingüística, asilo, ayudas de ingresos mínimos, dependencia, prácticas remuneradas, inspección laboral y emancipación juvenil.
 - Avanzado: 22 preguntas generales y 8 votaciones de la XV Legislatura (selección de 2024–2025). Las leyes incluyen contexto y fuentes.
 - Puntuación: coincidencias documentadas / 30 × 100, con un decimal. 30/30 = 100 %, 15/30 = 50 %. Cada coincidencia pesa exactamente 100/30; no se suman puntos redondeados. Los datos ausentes y las respuestas sin opinión no suman, pero no se etiquetan como desacuerdos. Si no hay ninguna respuesta comparable, no hay porcentaje. En el avanzado, «Solo votaciones» mantiene la base de 30 y su máximo es 26,7 %.
-- Tabla comparativa visible al terminar, incluso si se ocultan las tarjetas provisionales. El informe del avanzado usa el test completo aunque se filtre la vista de tarjetas.
 - Básico: 13 referencias de partidos; avanzado: 12 referencias parlamentarias. No todas tienen la misma cobertura. Algunas fichas carecen de posiciones generales suficientes.
 - Catálogo al final de ambos tests: 87 denominaciones presentadas al Congreso en las 52 circunscripciones del [BOE de 28/10/2026](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-22607&lang=es). Incluye Compromís, Frente Amplio, formaciones sin escaños, coaliciones y variantes territoriales. No son 87 partidos diferentes ni se afirma su proclamación definitiva. Buscador por nombre, provincia y datos pendientes. Las coaliciones nuevas no heredan posiciones de sus integrantes.
 
@@ -19,24 +18,7 @@ Python 3, sin paquetes externos:
 python3 -B server.py --port 8089
 ```
 
-Abre http://127.0.0.1:8089/index.html. El código en GitHub no supone un despliegue público: GitHub Pages no ejecuta las estadísticas ni el correo de este servidor.
-
-## Envío automático de resultados
-
-Cada visitante puede escribir su propia dirección y autorizar un envío único de la tabla de resultados políticos. No necesita enviar él mismo el mensaje. El servidor entrega una versión HTML y texto al proveedor SMTP, que realiza la entrega. La interfaz confirma la aceptación por el proveedor, no garantiza llegada a la bandeja principal.
-
-**Estado: integración implementada; envío real pendiente de configurar un servicio remitente.** La aplicación no muestra envíos ficticios. `GET /api/email-status` indica si está configurado y el botón permanece desactivado si no lo está.
-
-Configura estas variables en el entorno del proceso del servidor y reinícialo:
-
-- `VOTO_SMTP_HOST`: servidor del proveedor.
-- `VOTO_SMTP_PORT`: 587 (STARTTLS obligatorio) o 465 (TLS desde la conexión).
-- `VOTO_SMTP_USER` y `VOTO_SMTP_PASSWORD`: credenciales del servicio.
-- `VOTO_SMTP_FROM`: dirección remitente autorizada por ese proveedor.
-
-`.env.example` es solo una plantilla sin secretos; no se carga automáticamente. No publiques credenciales. `POST /api/email-results` valida origen, tamaño, consentimiento, dirección y recuentos; vuelve a calcular el porcentaje antes de generar el correo. Usa un límite global de un envío cada 10 segundos y TLS con verificación de certificados. Esto es una implementación de desarrollo: no incluye cuentas verificadas de visitantes ni confirma la propiedad de la dirección introducida.
-
-No se guardan direcciones ni resultados en SQLite ni en archivos. El correo y la tabla se procesan en memoria para enviarlos. El proveedor remitente y el destinatario conservan los datos según sus condiciones. No hay suscripción publicitaria. Las respuestas individuales no se incluyen en el correo. Sin proveedor configurado no se ha realizado una prueba de entrega real; las pruebas de SMTP utilizan un transporte simulado.
+Abre http://127.0.0.1:8089/index.html. El código en GitHub no supone un despliegue público: GitHub Pages no ejecuta las estadísticas de este servidor.
 
 ## Fuentes y límites
 
@@ -56,7 +38,10 @@ Edita `styles.scss` y ejecuta `node build-styles.mjs`. El SCSS actual usa sintax
 
 ```sh
 node check-scoring.cjs
-python3 -B -m unittest test_mailer -v
 ```
 
-Se comprueban 30/30, 15/30, la base fija del avanzado, consentimiento, validación del correo, escape de HTML, fallo por falta de configuración, transporte TLS simulado y limitación de envíos. El servidor incluido debe desplegarse detrás de HTTPS para uso por internet.
+Se comprueban 30/30, 15/30 y la base fija del avanzado. El servidor incluido debe desplegarse detrás de HTTPS para uso por internet.
+
+## Estado actual
+
+Se conservan ambos tests de 30 preguntas y el catálogo de candidaturas. Se han retirado la recogida de correo, el envío SMTP y los asistentes de configuración de Gmail. No hay conexión de correo activa en la aplicación.
