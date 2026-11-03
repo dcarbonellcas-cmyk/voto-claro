@@ -133,3 +133,8 @@
 .catalog-pending { display:flex; align-items:center; gap:10px; margin:18px 0; cursor:pointer; }
 .catalog-pending input { width:20px; height:20px; accent-color:#514ab0; flex-shrink:0; }
 
+
+/* Identificación visual de las referencias del test. */
+.party-identity { display:flex; align-items:center; gap:12px; min-width:0; flex:1 1 170px; }
+.party-logo { width:56px; height:48px; padding:6px; flex:none; object-fit:contain; background:#fff; border:1px solid #e2e4ef; border-radius:10px; }
+.party-identity h3 { overflow-wrap:anywhere; }

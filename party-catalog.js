@@ -1,4 +1,4 @@
-// Catálogo común al final de ambos tests. El cálculo se recibe desde cada test.
+// Catálogo al final del test. El cálculo se recibe del test avanzado.
 
 function safeText(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function candidateCatalog(){
@@ -20,6 +20,8 @@ function bindCandidateFilters(scoreCandidate=()=>null){
 
 function candidateReference(name){
  const aliases={
+ 'ADELANTE ANDALUCÍA (ADELANTE ANDALUCÍA)':'Adelante Andalucía',
+ 'PARTIDO COMUNISTA DE LOS TRABAJADORES DE ESPAÑA (PCTE)':'PCTE',
  'PARTIDO POPULAR (PP)':'PP','PARTIT POPULAR/PARTIDO POPULAR (PP)':'PP',
  'PARTIDO SOCIALISTA OBRERO ESPAÑOL (PSOE)':'PSOE',
  'VOX (VOX)':'VOX','VOX':'VOX',

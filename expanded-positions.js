@@ -55,3 +55,23 @@ for(const [index,page,reason] of [
  [26,19,'Reclama el cumplimiento de la financiación pública del sistema de dependencia.'],
  [27,63,'Propone garantizar la remuneración de las prácticas y evitar que sustituyan puestos de trabajo.']
 ])PARTIES.find(p=>p.name==='BNG').positions[index]=evidence(0,reason,EXTRA_DOCUMENTS.BNG+'#page='+page,'BNG · generales 2023 · página PDF '+page);
+
+// Revisión documental del 03/11/2026. Los programas autonómicos se identifican
+// como tales; no se les atribuyen votos del grupo Sumar ni de otras coaliciones.
+PARTIES.find(p=>p.name==='PACMA').positions[20]=evidence(0,'Propone educación universal de 0 a 3 años y plazas públicas suficientes.','https://pacma.es/wp-content/uploads/2023/07/PACMA_PE_GENERALES_23J23.pdf#page=54','PACMA · generales 2023 · página PDF 54');
+PARTIES.find(p=>p.name==='PACMA').positions[22]=evidence(0,'Propone reducir la ratio de alumnado por docente para mejorar la atención personalizada.',EXTRA_DOCUMENTS.PACMA+'#page=55','PACMA · generales 2023 · página PDF 55');
+PARTIES.find(p=>p.name==='ERC').positions[0]=evidence(0,'Propone nuevos tramos para las rentas más altas y aumentar los tipos de las rentas del capital.','https://static.esquerra.cat/uploads/20230705/e2023-programa.pdf','ERC · generales 2023 · fiscalidad, apartado de rentas del trabajo y del capital');
+const cc=PARTIES.find(p=>p.name==='Coalición Canaria');
+cc.period='Declaración parlamentaria 2023 · ámbito canario';
+cc.positions[16]=evidence(0,'Defiende la gratuidad de guaguas y tranvías obtenida en la negociación presupuestaria. Referencia limitada a Canarias.','https://www.parcan.es/pub/ds.py/2023/6/9/','Coalición Canaria · Parlamento de Canarias · 12/09/2023 · David Toledo');
+PARTIES.push(
+ {name:'Compromís',period:'Programa autonómico valenciano 2023 · referencia territorial',positions:positions([
+ [19,evidence(0,'Propone incorporar profesionales de psicología en cada centro de salud y consultorio.','https://28m.compromis.net/programa/sanitat/770','Compromís · autonómicas 2023 · Sanitat, medida 38')],
+ [22,evidence(0,'Propone reducir el alumnado por aula, especialmente en Secundaria y Bachillerato.','https://28m.compromis.net/programa/educacio','Compromís · autonómicas 2023 · Educació, medida 93')]
+ ])},
+ {name:'Más Madrid',period:'Programa autonómico de Madrid 2023 · referencia territorial',positions:positions([
+ [2,evidence(0,'Propone un plan de recuperación sanitaria dotado con 6.100 millones de euros en cuatro años.','https://programa.masmadrid.org/','Más Madrid · autonómicas 2023 · medida 2')],
+ [19,evidence(0,'Propone aumentar profesionales de psicología clínica y reforzar la atención primaria en su plan de salud mental.','https://programa.masmadrid.org/pdf/Comunidad%20de%20Madrid/Programa%20M%C3%A1s%20Madrid%20-%20CM%202023.pdf','Más Madrid · autonómicas 2023 · medida 176')]
+ ])}
+);
+PARTIES.sort((a,b)=>a.name.localeCompare(b.name,'es'));

@@ -1,0 +1,211 @@
+{
+  "PP": {
+    "path": "assets/party-logos/pp.svg",
+    "file": "Logo del PP (2022).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Logo_del_PP_(2022).svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Logo_del_PP_%282022%29.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Logo_del_PP_%282022%29.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "es:Partido Popular",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "3e9b0fbd98e1b4cd6547c4148000fa849e655281ca809c093339acc733c45c97"
+  },
+  "PSOE": {
+    "path": "assets/party-logos/psoe.svg",
+    "file": "Logotipo del PSOE.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Logotipo_del_PSOE.svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/4/41/Logotipo_del_PSOE.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/4/41/Logotipo_del_PSOE.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Trademarked by PghipSOE. This file, by Rastrojo •Rastrojo",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "e3608898bbea11258534774622709e81bdfa464a16694df9b578f56746f1a2f1"
+  },
+  "VOX": {
+    "path": "assets/party-logos/vox.svg",
+    "file": "VOX logo.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:VOX_logo.svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/a/aa/VOX_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/a/aa/VOX_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "VOX",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "83b369bd57528a6c55930afbfe8c7ff1358a32bfbedda0e2b106a0d3705ec54a"
+  },
+  "Sumar": {
+    "path": "assets/party-logos/sumar.svg",
+    "file": "Sumar logo.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Sumar_logo.svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/5/51/Sumar_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/5/51/Sumar_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Sumar",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "53fb54bd7330b0134e8f6c0096f6797dd1279e6b553de372771946e7e1aea366"
+  },
+  "Podemos": {
+    "path": "assets/party-logos/podemos.svg",
+    "file": "Podemos logo completo (2022).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Podemos_logo_completo_(2022).svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Podemos_logo_completo_%282022%29.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Podemos_logo_completo_%282022%29.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Podemos",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "47d1b0569b5d282569686d852c917e9b871355d641e46b8c10811b8bdad45c98"
+  },
+  "ERC": {
+    "path": "assets/party-logos/erc.svg",
+    "file": "ERC logo 2025.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:ERC_logo_2025.svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/9/9a/ERC_logo_2025.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/9/9a/ERC_logo_2025.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Esquerra Republicana de Catalunya",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "e0422b0de0be5c0b94c12943553938d16355e12fa1f43f4945dba3967edcfecb"
+  },
+  "Junts": {
+    "path": "assets/party-logos/junts.png",
+    "file": "Logo partit Junts per Catalunya.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Logo_partit_Junts_per_Catalunya.png",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/3/32/Logo_partit_Junts_per_Catalunya.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/3/32/Logo_partit_Junts_per_Catalunya.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Junts per Catalunya",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "db43134bc78bc767fae073bd2cf25d3e3e8e6ccb4a6e954fd0c7964ce4462b2a"
+  },
+  "PNV": {
+    "path": "assets/party-logos/pnv.svg",
+    "file": "Logo PNV 2025.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Logo_PNV_2025.svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/3/31/Logo_PNV_2025.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/3/31/Logo_PNV_2025.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Euzko Alderdi Jeltzalea-Partido Nacionalista Vasco",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "ef42a5c0d792cd9bb51a0192fcfbe4ad06987129fe9a42bf4ed782662080bef5"
+  },
+  "Bildu": {
+    "path": "assets/party-logos/bildu.svg",
+    "file": "Logo de EH Bildu (2023).svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Logo_de_EH_Bildu_(2023).svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Logo_de_EH_Bildu_%282023%29.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Logo_de_EH_Bildu_%282023%29.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "EH Bildu",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "9e063ba9b6591790572b0659ea662cd4e2d467eaffa95eabb900f6b9ce24247a"
+  },
+  "BNG": {
+    "path": "assets/party-logos/bng.svg",
+    "file": "Bloque Nacionalista Galego.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Bloque_Nacionalista_Galego.svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/8/88/Bloque_Nacionalista_Galego.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/8/88/Bloque_Nacionalista_Galego.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Bloque Nacionalista Galego",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "21202aa3c0f4d0920a2daced3913a950e4540a74c18b7be3d85218d6fd5ba61c"
+  },
+  "CC": {
+    "path": "assets/party-logos/cc.svg",
+    "file": "Coalición Canaria.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Coalici%C3%B3n_Canaria.svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Coalici%C3%B3n_Canaria.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Coalici%C3%B3n_Canaria.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Coalición Canaria",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "583674f1af33535daeb5ab9e0422a1d2a2d52ade13332b6eb2f2de1ffeae6426"
+  },
+  "UPN": {
+    "path": "assets/party-logos/upn.svg",
+    "file": "Logo UPN 2017.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Logo_UPN_2017.svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_UPN_2017.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_UPN_2017.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Fer1997",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "a57d628dddf33086046049ee005ffb7031c681db961e355d968e744f10f589d0"
+  },
+  "PACMA": {
+    "path": "assets/party-logos/pacma.jpg",
+    "file": "Nuevo Logo PACMA.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Nuevo_Logo_PACMA.jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/0/07/Nuevo_Logo_PACMA.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/0/07/Nuevo_Logo_PACMA.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Partido Animalista Con el Medio Ambiente",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sha256": "1d5f8ab83dc4a14985ca9e3c049ff48d69566fc775fa53a86066ec0b9aaf7525"
+  },
+  "Compromís": {
+    "path": "assets/party-logos/compromis.svg",
+    "file": "Compromís logo completo.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Comprom%C3%ADs_logo_completo.svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Comprom%C3%ADs_logo_completo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Comprom%C3%ADs_logo_completo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Compromís",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "a1711458b8bfebe15c0a78038ddf9ab6f0df922665fb1910f63ae7abc24c97d5"
+  },
+  "Más Madrid": {
+    "path": "assets/party-logos/mas-madrid.png",
+    "file": "Logo Más Madrid 2023.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Logo_M%C3%A1s_Madrid_2023.svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/7/77/Logo_M%C3%A1s_Madrid_2023.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Logo_M%C3%A1s_Madrid_2023.svg/330px-Logo_M%C3%A1s_Madrid_2023.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "author": "Más Madrid",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "45e29a063565b9fae3bfa30c98401e323a9ad4745742851981edbfb5439c62f0"
+  },
+  "PCTE": {
+    "path": "assets/party-logos/pcte.png",
+    "file": "LOGO PCTE RGB-06.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:LOGO_PCTE_RGB-06.svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/e/ed/LOGO_PCTE_RGB-06.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/LOGO_PCTE_RGB-06.svg/330px-LOGO_PCTE_RGB-06.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "author": "PCTE",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "22eea02d435790ce1e1b081ebaea4cf08fa4fe8062ac84a33ed8401474ea9852"
+  },
+  "Adelante Andalucía": {
+    "path": "assets/party-logos/adelante.png",
+    "file": "Adelante Andalucía 2021 logo.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Adelante_Andaluc%C3%ADa_2021_logo.svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Adelante_Andaluc%C3%ADa_2021_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Adelante_Andaluc%C3%ADa_2021_logo.svg/330px-Adelante_Andaluc%C3%ADa_2021_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "author": "Adelante Andalucía",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "40b361630208be21163f10e2479d034a0a550c1e97add9c667bf684c0d4bacd1"
+  },
+  "Nueva Canarias-BC": {
+    "path": "assets/party-logos/nc.png",
+    "file": "Nueva Canarias Bloque Canarista logo completo.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Nueva_Canarias_Bloque_Canarista_logo_completo.svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/8/83/Nueva_Canarias_Bloque_Canarista_logo_completo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Nueva_Canarias_Bloque_Canarista_logo_completo.svg/330px-Nueva_Canarias_Bloque_Canarista_logo_completo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "author": "Nueva Canarias-Bloque Canarista",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "bc75dff2d222b09e2218e0d449dd5fb06561496f0c15f3ab9ca49c0f06391f0a"
+  },
+  "Ciudadanos": {
+    "path": "assets/party-logos/ciudadanos.png",
+    "file": "Ciudadanos logo 2017.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Ciudadanos_logo_2017.svg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Ciudadanos_logo_2017.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/Ciudadanos_logo_2017.svg/330px-Ciudadanos_logo_2017.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "author": "Ciudadanos-Partido de la Ciudadanía",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sha256": "48e08fac9ba1c6c7e3e1df5e844c7a7aafad114642496ec88e655511f237f10a"
+  }
+}

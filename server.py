@@ -5,10 +5,18 @@ import os
 import sqlite3
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 
 ROOT = Path(__file__).resolve().parent
 CHOICES = ('not_voting', 'undecided', 'dont_know')
+
+def is_public_file(path):
+    filename = unquote(path).lstrip('/') or 'index.html'
+    logo_prefix = 'assets/party-logos/'
+    if filename.startswith(logo_prefix):
+        name = filename[len(logo_prefix):]
+        return bool(name) and '/' not in name and '\\' not in name and not name.startswith('.') and Path(name).suffix.lower() in ('.svg', '.png', '.jpg')
+    return '/' not in filename and '\\' not in filename and not filename.startswith('.') and Path(filename).suffix in ('.html', '.js', '.css', '.svg')
 
 class Statistics:
     def __init__(self, path):
@@ -52,15 +60,13 @@ class Handler(SimpleHTTPRequestHandler):
         if path == '/api/participation':
             return self.send_json(self.server.statistics.snapshot())
         # Servir solo recursos de la app, nunca la base de datos o el servidor.
-        filename = path.lstrip('/') or 'index.html'
-        if '/' in filename or filename.startswith('.') or Path(filename).suffix not in ('.html', '.js', '.css', '.svg'):
+        if not is_public_file(path):
             return self.send_error(404)
         super().do_GET()
 
     def do_HEAD(self):
         path = urlparse(self.path).path
-        filename = path.lstrip('/') or 'index.html'
-        if '/' in filename or filename.startswith('.') or Path(filename).suffix not in ('.html', '.js', '.css', '.svg'):
+        if not is_public_file(path):
             return self.send_error(404)
         super().do_HEAD()
 
