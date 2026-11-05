@@ -2,7 +2,7 @@ const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
 const elements=new Map();
 function element(){return {innerHTML:'',dataset:{},focus(){},scrollIntoView(){},setAttribute(){},addEventListener(){},querySelector(){return element()},querySelectorAll(){return []}}}
 const context=vm.createContext({document:{getElementById:id=>{if(!elements.has(id))elements.set(id,element());return elements.get(id)}},window:{scrollTo(){}},clearTimeout,setTimeout,candidateCatalog:()=>'',bindCandidateFilters(){}});
-for(const file of ['questions.js','positions.js','expanded-positions.js','research-positions.js','party-logos.js','scoring.js','advanced-data.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context);
+for(const file of ['questions.js','positions.js','expanded-positions.js','research-positions.js','party-logos.js','scoring.js','candidacies.js','advanced-data.js','election-options.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context);
 vm.runInContext(`
 if(GENERAL_SELECTION.length!==20||PARLIAMENT_QUESTIONS.length!==15)throw Error('Deben ser 20 + 15');
 if(new Set(GENERAL_SELECTION).size!==20||GENERAL_SELECTION.some(i=>!questions[i]))throw Error('Selección general inválida');
@@ -17,7 +17,7 @@ for(const p of PARTIES)for(const pos of p.positions.filter(Boolean))if(![0,1].in
 PARTIES.push({name:'Fixture',positions:Array.from({length:questions.length},()=>({answer:0,url:'https://example.org',source:'Fixture'}))});
 PARLIAMENT_QUESTIONS.forEach(q=>q.votes.Fixture=0);
 `,context);
-const source=fs.readFileSync('advanced.js','utf8').replace(/intro\(\);\s*\}\)\(\);\s*$/,'globalThis.testing={calculate,partyPosition,sourceRows,items,intro,quiz,results,setAnswers:a=>{answers=a},setStep:i=>{step=i}};\n})();');
+const source=fs.readFileSync('advanced.js','utf8').replace(/intro\(\);\s*\}\)\(\);\s*$/,'globalThis.testing={calculate,partyPosition,sourceRows,items,intro,quiz,results,recordCompletion,setAnswers:a=>{answers=a},setStep:i=>{step=i},setProvince:p=>{province=p}};\n})();');
 vm.runInContext(source,context);
 const t=context.testing;
 t.setAnswers(Array(35).fill(0));assert.equal(t.calculate({id:'Fixture'},'all').percent,100);
@@ -60,3 +60,72 @@ const logos=JSON.parse(fs.readFileSync('party-logos.json','utf8'));
 for(const logo of Object.values(logos))assert.ok(fs.existsSync(logo.path),logo.path);
 assert.equal(Object.keys(logos).length,19);
 console.log('OK: 26 evidencias nuevas y 19 logotipos locales con atribución.');
+
+vm.runInContext(`
+if(CANDIDACY_TOTAL!==534||CANDIDACY_EXCLUDED!==21)throw Error('Recuento electoral inesperado');
+if(CANDIDACIES.reduce((n,c)=>n+c.provinces.length,0)!==534)throw Error('Listas electorales duplicadas o ausentes');
+if(ELECTION_OPTIONS.length!==21)throw Error('Falta una candidatura o coalición revisada');
+if(ELECTION_OPTIONS.some(p=>!p.entries.length||!p.provinces.length))throw Error('Opción no proclamada');
+if(ELECTION_OPTIONS.some(p=>['Sumar','Más Madrid','Compromís','CC','UPN','Nueva Canarias-BC','Ciudadanos'].includes(p.id)))throw Error('Referencia histórica presentada como opción electoral');
+if(ELECTION_OPTIONS.some(p=>p.coalition&&(p.sourceName||p.voteReference)))throw Error('Coalición hereda datos de sus integrantes');
+if(electionOptionsForProvince('Navarra').some(p=>['PP','Bildu'].includes(p.id)))throw Error('Papeleta individual inexistente en Navarra');
+for(const id of ['UPN-PP','EH-ERC'])if(!electionOptionsForProvince('Navarra').some(p=>p.id===id))throw Error('Falta coalición navarra');
+if(electionOptionsForProvince('Barcelona').some(p=>p.id==='PACMA'))throw Error('PACMA no proclamada en Barcelona');
+if(electionOptionsForProvince('Teruel').some(p=>p.id==='FA'))throw Error('FA no se presenta en Teruel');
+for(const name of ['Alicante','Castellón','Valencia'])if(electionOptionsForProvince(name).some(p=>p.id==='Podemos'))throw Error('Podemos va en coalición en Valencia');
+for(const name of ['Las Palmas','Santa Cruz De Tenerife'])if(electionOptionsForProvince(name).some(p=>p.id==='Podemos'))throw Error('Podemos va en UPC en Canarias');
+`,context);
+const getOption=id=>vm.runInContext('ELECTION_OPTIONS.find(p=>p.id==='+JSON.stringify(id)+')',context);
+t.setAnswers(Array(35).fill(0));
+assert.equal(t.calculate(getOption('FA'),'all').documented,1);
+assert.equal(t.calculate(getOption('FA'),'all').percent,2.9);
+assert.equal(t.calculate(getOption('FA'),'votes').percent,null);
+for(const id of ['UPN-PP','CC-1CAN','Front Valencià','UPC','D21','AraMés-FA','EH-ERC','PSC'])assert.equal(t.calculate(getOption(id),'all').percent,null);
+t.results();
+const resultHtml=elements.get('app').innerHTML;
+assert.match(resultHtml,/<h3>Frente Amplio<\/h3>/);
+assert.match(resultHtml,/assets\/party-logos\/frente-amplio.svg/);
+for(const name of ['Sumar (grupo parlamentario)','Más Madrid','Compromís','Coalición Canaria','UPN','Nueva Canarias-BC','Ciudadanos'])assert.ok(!resultHtml.includes('<h3>'+name+'</h3>'),name);
+t.setProvince('Navarra');t.results();assert.match(elements.get('app').innerHTML,/<h3>UPN-PP<\/h3>/);assert.doesNotMatch(elements.get('app').innerHTML,/<h3>PP<\/h3>/);
+t.setProvince('Barcelona');t.results();assert.doesNotMatch(elements.get('app').innerHTML,/<h3>PACMA<\/h3>/);
+t.setProvince('Todas');
+assert.ok(fs.existsSync('assets/party-logos/frente-amplio.svg'));
+console.log('OK: opciones proclamadas, coaliciones sin herencia de datos, exclusiones y filtrado provincial.');
+
+// El catálogo y las tarjetas usan la misma identidad electoral y el mismo filtro.
+vm.runInContext(fs.readFileSync('party-catalog.js','utf8'),context);
+for(const id of ['candidate-search','candidate-province'])context.document.getElementById(id).value='';
+context.document.getElementById('candidate-pending').checked=false;
+vm.runInContext("bindCandidateFilters(name=>{const p=electionOptionForName(name);if(!p)return null;const r=testing.calculate(p);return {...r,comparable:r.total}},'Navarra')",context);
+assert.equal(elements.get('candidate-province').value,'Navarra');
+assert.match(elements.get('candidate-list').innerHTML,/UPN-PP/);
+assert.doesNotMatch(elements.get('candidate-list').innerHTML,/Referencia histórica de UPN/);
+assert.ok(elements.get('candidate-list').innerHTML.includes('Comparación pendiente'));
+vm.runInContext("bindCandidateFilters(name=>{const p=electionOptionForName(name);if(!p)return null;const r=testing.calculate(p);return {...r,comparable:r.total}},'Barcelona')",context);
+assert.doesNotMatch(elements.get('candidate-list').innerHTML,/PARTIT ANIMALISTA|PARTIDO ANIMALISTA/);
+console.log('OK: catálogo y resultados comparten candidaturas y provincia; sin listas no proclamadas.');
+
+// Guardado desde la pantalla real de resultados, con sesión y reintentos.
+(async()=>{
+ const calls=[];
+ context.crypto={randomUUID:()=>require('node:crypto').randomUUID()};
+ context.Account={user:{username:'fixture'},ready:Promise.resolve(),request:async(path,data)=>{calls.push({path,data});return {id:'saved'}},login:async()=>null};
+ t.setProvince('Todas');t.setAnswers(Array(35).fill(0));t.results();
+ await elements.get('save-result').onclick();
+ assert.equal(calls.length,1);assert.equal(calls[0].path,'results');
+ const snapshot=calls[0].data.snapshot;
+ assert.equal(snapshot.questions.length,35);assert.equal(snapshot.results.length,21);
+ assert.equal(snapshot.province,'Todas');assert.equal(snapshot.scope,'all');
+ const pp=snapshot.results.find(p=>p.id==='PP'),computed=t.calculate(getOption('PP'));
+ assert.equal(pp.matches,computed.matches);assert.equal(pp.comparable,computed.total);
+ await elements.get('save-result').onclick();assert.equal(calls.length,1,'No duplicar el mismo resultado');
+ t.setProvince('Navarra');t.results();await elements.get('save-result').onclick();
+ assert.equal(calls.length,2);assert.notEqual(calls[0].data.requestId,calls[1].data.requestId);
+ assert.equal(calls[1].data.snapshot.province,'Navarra');
+ context.Account.user=null;t.results();await elements.get('save-result').onclick();assert.equal(calls.length,2,'Cancelar acceso no debe guardar');
+ const completions=[];context.fetch=async(path,options)=>{completions.push({path,options});return {ok:true}};
+ await t.recordCompletion();await t.recordCompletion();assert.equal(completions.length,1);assert.equal(completions[0].options.credentials,'omit');
+ const anonymous=JSON.parse(completions[0].options.body);assert.deepEqual(Object.keys(anonymous).sort(),['leaders','receipt']);assert.ok(anonymous.leaders.length);
+ console.log('OK: recuento de finalización sin cuenta, respuestas ni cookies; sin duplicados.');
+ console.log('OK: guardado voluntario, snapshot de 35 respuestas y puntuaciones, filtros y prevención de duplicados.');
+})().catch(error=>{console.error(error);process.exitCode=1});

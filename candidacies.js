@@ -1,6 +1,8 @@
-// Denominaciones del Congreso; no se importan datos personales.
-const CANDIDACY_SOURCE="https://www.boe.es/buscar/doc.php?id=BOE-A-2026-22607&lang=es";
-const CANDIDACY_DATE="28/10/2026";
+// Solo denominaciones proclamadas al Congreso; sin datos personales.
+const CANDIDACY_SOURCE="https://www.boe.es/buscar/doc.php?id=BOE-A-2026-23103";
+const CANDIDACY_DATE="03/11/2026";
+const CANDIDACY_TOTAL=534;
+const CANDIDACY_EXCLUDED=21;
 const CANDIDACIES=[
   {
     "name": "ADELANTE ANDALUCÍA (ADELANTE ANDALUCÍA)",
@@ -43,9 +45,14 @@ const CANDIDACIES=[
     ]
   },
   {
+    "name": "BLOQUE NACIONALISTA GALEGO (B.N.G.)",
+    "provinces": [
+      "A Coruña"
+    ]
+  },
+  {
     "name": "BLOQUE NACIONALISTA GALEGO (BNG)",
     "provinces": [
-      "A Coruña",
       "Lugo",
       "Ourense",
       "Pontevedra"
@@ -59,7 +66,7 @@ const CANDIDACIES=[
     ]
   },
   {
-    "name": "COALICIÓN CANARIA-MUNICIPALISTAS PRIMERO CANARIAS (CCa-1.ºCAN)",
+    "name": "Coalición Canaria-Municipalistas Primero Canarias (CCa-1.ºCAN)",
     "provinces": [
       "Santa Cruz De Tenerife"
     ]
@@ -68,21 +75,17 @@ const CANDIDACIES=[
     "name": "COMPROMÍS: FRONT VALENCIÀ (COMPROMIS-EUPV-PODEM-ERPV)",
     "provinces": [
       "Alicante",
-      "Castellón"
-    ]
-  },
-  {
-    "name": "COMPROMÍS: FRONT VALENCIÀ (COMPROMÍS-EUPV-PODEM-ERPV)",
-    "provinces": [
+      "Castellón",
       "Valencia"
     ]
   },
   {
-    "name": "COMUNS-FRONT AMPLI (COMUNS-FRONT AMPLI)",
+    "name": "Comuns-Front Ampli (COMUNS-FRONT AMPLI)",
     "provinces": [
       "Barcelona",
       "Girona",
-      "Lleida"
+      "Lleida",
+      "Tarragona"
     ]
   },
   {
@@ -92,16 +95,28 @@ const CANDIDACIES=[
     ]
   },
   {
-    "name": "DEMOCRACIA PARA EL SIGLO 21 (D21)",
+    "name": "DEMOCRACIA para el siglo 21 (D21)",
     "provinces": [
       "Barcelona",
       "Madrid"
     ]
   },
   {
-    "name": "EGUZKILORE",
+    "name": "EGUZKILORE (EGUZKILORE)",
     "provinces": [
       "Navarra"
+    ]
+  },
+  {
+    "name": "Escanos en Branco para deixar Escanos Baleiros (ESCAÑOS EN BLANCO)",
+    "provinces": [
+      "Pontevedra"
+    ]
+  },
+  {
+    "name": "ESCAÑOS EN BLANCO PARA DEJAR ESCAÑOS VACIOS (ESCAÑOS EN BLANCO)",
+    "provinces": [
+      "La Rioja"
     ]
   },
   {
@@ -115,11 +130,8 @@ const CANDIDACIES=[
       "Murcia",
       "Palencia",
       "Las Palmas",
-      "Pontevedra",
-      "La Rioja",
       "Soria",
-      "Valladolid",
-      "Melilla"
+      "Valladolid"
     ]
   },
   {
@@ -132,7 +144,13 @@ const CANDIDACIES=[
     ]
   },
   {
-    "name": "EUSKAL HERRIA BILDU (EH Bildu)",
+    "name": "EUSKADIKO LANGILEEN ALDERDI KOMUNISTA/PARTIDO COMUNISTA DE LOS TRABAJADORES DE EUSKADI (ELAK/PCTE)",
+    "provinces": [
+      "Gipuzkoa"
+    ]
+  },
+  {
+    "name": "EUSKAL HERRIA BILDU (EH BILDU)",
     "provinces": [
       "Álava",
       "Bizkaia",
@@ -140,7 +158,7 @@ const CANDIDACIES=[
     ]
   },
   {
-    "name": "EUSKAL HERRIA BILDU (EH-Bildu)",
+    "name": "EUSKAL HERRIA BILDU-ESQUERRA REPUBLICANA DE CATALUNYA (EH BILDU-ERC)",
     "provinces": [
       "Navarra"
     ]
@@ -154,19 +172,27 @@ const CANDIDACIES=[
     ]
   },
   {
-    "name": "FALANGE ESPAÑOLA DE LAS JONS (FE de las JONS)",
+    "name": "FALANGE ESPAÑOLA DE LAS J.O.N.S. (FE de las JONS)",
     "provinces": [
-      "Alicante",
-      "Castellón",
-      "Córdoba",
       "Guadalajara",
       "Madrid",
       "Palencia",
-      "Sevilla",
       "Teruel",
       "Toledo",
       "Valencia",
-      "Valladolid",
+      "Valladolid"
+    ]
+  },
+  {
+    "name": "FALANGE ESPAÑOLA DE LAS JONS (FE de las JONS)",
+    "provinces": [
+      "Castellón",
+      "Córdoba"
+    ]
+  },
+  {
+    "name": "FEDERACION DE LOS INDEPENDIENTES DE ARAGON (F.I.A.)",
+    "provinces": [
       "Zaragoza"
     ]
   },
@@ -177,26 +203,13 @@ const CANDIDACIES=[
     ]
   },
   {
-    "name": "FEDERACIÓN DE LOS INDEPENDIENTES DE ARAGÓN (FIA)",
-    "provinces": [
-      "Zaragoza"
-    ]
-  },
-  {
-    "name": "FEMINISM8 (F8)",
-    "provinces": [
-      "Santa Cruz De Tenerife"
-    ]
-  },
-  {
     "name": "FEMINISTAS AL CONGRESO (PFAC)",
     "provinces": [
-      "Álava",
-      "Bizkaia"
+      "Álava"
     ]
   },
   {
-    "name": "FRENTE AMPLIO (FA)",
+    "name": "Frente Amplio (FA)",
     "provinces": [
       "Albacete",
       "Almería",
@@ -212,7 +225,6 @@ const CANDIDACIES=[
       "Guadalajara",
       "Jaén",
       "León",
-      "Lugo",
       "Madrid",
       "Málaga",
       "Murcia",
@@ -221,14 +233,19 @@ const CANDIDACIES=[
       "Salamanca",
       "Segovia",
       "Soria",
-      "Tarragona",
       "Toledo",
       "Valladolid",
       "Zamora"
     ]
   },
   {
-    "name": "FRENTE AMPLIO ANDALUZ (FA)",
+    "name": "Frente Amplio - Fronte Ampla (FRENTE AMPLIO - FRONTE AMPLA)",
+    "provinces": [
+      "Pontevedra"
+    ]
+  },
+  {
+    "name": "Frente Amplio Andaluz (FA)",
     "provinces": [
       "Cádiz",
       "Córdoba",
@@ -238,22 +255,18 @@ const CANDIDACIES=[
     ]
   },
   {
-    "name": "FRENTE AMPLIO – FRONTE ZABALA",
-    "provinces": [
-      "Navarra"
-    ]
-  },
-  {
-    "name": "FRENTE AMPLIO-FRONTE AMPLA (FRENTE AMPLIO-FRONTE AMPLA)",
+    "name": "Frente Amplio-Fronte Ampla (FRENTE AMPLIO-FRONTE AMPLA)",
     "provinces": [
       "A Coruña",
+      "Lugo",
       "Ourense"
     ]
   },
   {
     "name": "FRENTE AMPLIO-FRONTE ZABALA (FRENTE AMPLIO-FRONTE ZABALA)",
     "provinces": [
-      "Álava"
+      "Álava",
+      "Navarra"
     ]
   },
   {
@@ -325,13 +338,7 @@ const CANDIDACIES=[
     ]
   },
   {
-    "name": "FRONTE AMPLA (FA)",
-    "provinces": [
-      "Pontevedra"
-    ]
-  },
-  {
-    "name": "GEROA BAI",
+    "name": "GEROA BAI (GBAI)",
     "provinces": [
       "Navarra"
     ]
@@ -343,37 +350,12 @@ const CANDIDACIES=[
     ]
   },
   {
-    "name": "IZQUIERDA POR ALMERÍA (IPAL)",
-    "provinces": [
-      "Almería"
-    ]
-  },
-  {
-    "name": "JOSÉ MARÍA CALVO GUERRA",
-    "provinces": [
-      "Málaga"
-    ]
-  },
-  {
-    "name": "JUNTOS POR EXTREMADURA (J.U.E.X.)",
-    "provinces": [
-      "Badajoz",
-      "Cáceres"
-    ]
-  },
-  {
     "name": "JUNTS PER CATALUNYA (JxCat)",
     "provinces": [
       "Barcelona",
       "Girona",
       "Lleida",
       "Tarragona"
-    ]
-  },
-  {
-    "name": "JUSTICIA Y LEY (JL)",
-    "provinces": [
-      "Álava"
     ]
   },
   {
@@ -404,13 +386,10 @@ const CANDIDACIES=[
       "Almería",
       "Álava",
       "Asturias",
-      "Illes Balears",
-      "Barcelona",
       "Bizkaia",
       "Cádiz",
       "Castellón",
       "Córdoba",
-      "A Coruña",
       "Cuenca",
       "Gipuzkoa",
       "Girona",
@@ -421,20 +400,16 @@ const CANDIDACIES=[
       "León",
       "Madrid",
       "Málaga",
-      "Murcia",
       "Navarra",
-      "Ourense",
       "Las Palmas",
       "La Rioja",
-      "Salamanca",
       "Santa Cruz De Tenerife",
       "Segovia",
       "Sevilla",
       "Tarragona",
       "Teruel",
       "Valencia",
-      "Valladolid",
-      "Zaragoza"
+      "Valladolid"
     ]
   },
   {
@@ -442,8 +417,7 @@ const CANDIDACIES=[
     "provinces": [
       "Alicante",
       "Castellón",
-      "Santa Cruz De Tenerife",
-      "Valencia"
+      "Santa Cruz De Tenerife"
     ]
   },
   {
@@ -461,7 +435,6 @@ const CANDIDACIES=[
       "Castellón",
       "Córdoba",
       "Cuenca",
-      "Gipuzkoa",
       "Granada",
       "Guadalajara",
       "Huelva",
@@ -471,6 +444,7 @@ const CANDIDACIES=[
       "Madrid",
       "Málaga",
       "Murcia",
+      "Navarra",
       "Palencia",
       "Las Palmas",
       "La Rioja",
@@ -509,15 +483,16 @@ const CANDIDACIES=[
     ]
   },
   {
-    "name": "PARTIDO DEMÓCRATA SOCIAL JUBILADOS EUROPEOS (PDSJE)",
+    "name": "PARTIDO DEMÓCRATA SOCIAL JUBILADOS EUROPEOS (P.D.S.J.E.)",
     "provinces": [
       "Ávila"
     ]
   },
   {
-    "name": "PARTIDO DOS SOCIALISTAS DE GALICIA-PSOE (PSDEG-PSOE)",
+    "name": "Partido dos Socialistas de Galicia-PSOE (PSdeG-PSOE)",
     "provinces": [
       "A Coruña",
+      "Lugo",
       "Ourense",
       "Pontevedra"
     ]
@@ -598,23 +573,12 @@ const CANDIDACIES=[
     "name": "PARTIDO REGIONALISTA DEL PAIS LEONES (PREPAL)",
     "provinces": [
       "León",
+      "Salamanca",
       "Zamora"
     ]
   },
   {
-    "name": "PARTIDO REGIONALISTA DEL PAÍS LEONES (PREPAL)",
-    "provinces": [
-      "Salamanca"
-    ]
-  },
-  {
-    "name": "PARTIDO SOCIALISTA DE CÁCERES (PSOE)",
-    "provinces": [
-      "Cáceres"
-    ]
-  },
-  {
-    "name": "PARTIDO SOCIALISTA DE EUSKADI-EUSKADIKO EZKERRA (PSOE) [PSE-EE (PSOE)]",
+    "name": "PARTIDO SOCIALISTA DE EUSKADI-EUSKADIKO EZKERRA (PSOE) PSE-EE (PSOE)",
     "provinces": [
       "Álava",
       "Bizkaia",
@@ -634,15 +598,9 @@ const CANDIDACIES=[
     ]
   },
   {
-    "name": "PARTIDO SOCIALISTA DE NAVARRA - PSOE (PSN-PSOE)",
+    "name": "PARTIDO SOCIALISTA DE NAVARRA-PSOE (PSN-PSOE)",
     "provinces": [
       "Navarra"
-    ]
-  },
-  {
-    "name": "PARTIDO SOCIALISTA DE SANTA CRUZ DE TENERIFE (PSOE)",
-    "provinces": [
-      "Santa Cruz De Tenerife"
     ]
   },
   {
@@ -655,6 +613,7 @@ const CANDIDACIES=[
       "Ávila",
       "Badajoz",
       "Burgos",
+      "Cáceres",
       "Cádiz",
       "Cantabria",
       "Castellón",
@@ -666,7 +625,6 @@ const CANDIDACIES=[
       "Huesca",
       "Jaén",
       "León",
-      "Lugo",
       "Madrid",
       "Málaga",
       "Murcia",
@@ -674,6 +632,7 @@ const CANDIDACIES=[
       "Las Palmas",
       "La Rioja",
       "Salamanca",
+      "Santa Cruz De Tenerife",
       "Segovia",
       "Sevilla",
       "Soria",
@@ -718,7 +677,7 @@ const CANDIDACIES=[
     ]
   },
   {
-    "name": "PARTIT POPULAR/PARTIDO POPULAR (PP)",
+    "name": "PARTIT POPULAR / PARTIDO POPULAR (PP)",
     "provinces": [
       "Barcelona",
       "Girona",
@@ -728,14 +687,13 @@ const CANDIDACIES=[
   {
     "name": "PODEMOS",
     "provinces": [
-      "Navarra",
       "La Rioja"
     ]
   },
   {
-    "name": "PODEMOS (PAZ, CASA Y TRABAJO)",
+    "name": "PODEMOS (PAZ,CASA Y TRABAJO)",
     "provinces": [
-      "Asturias"
+      "Ceuta"
     ]
   },
   {
@@ -744,6 +702,7 @@ const CANDIDACIES=[
       "Albacete",
       "Almería",
       "Álava",
+      "Asturias",
       "Ávila",
       "Badajoz",
       "Bizkaia",
@@ -766,6 +725,7 @@ const CANDIDACIES=[
       "Madrid",
       "Málaga",
       "Murcia",
+      "Navarra",
       "Ourense",
       "Palencia",
       "Pontevedra",
@@ -777,12 +737,11 @@ const CANDIDACIES=[
       "Toledo",
       "Valladolid",
       "Zamora",
-      "Zaragoza",
-      "Ceuta"
+      "Zaragoza"
     ]
   },
   {
-    "name": "POR UN MUNDO MAIS XUSTO (PUM+J)",
+    "name": "POR UN MUNDO MAIS XUSTO (MUNDO+JUSTO)",
     "provinces": [
       "Ourense"
     ]
@@ -791,11 +750,11 @@ const CANDIDACIES=[
     "name": "POR UN MUNDO MAS JUSTO (MUNDO+JUSTO)",
     "provinces": [
       "Albacete",
+      "Almería",
       "Álava",
       "Asturias",
       "Ávila",
       "Badajoz",
-      "Barcelona",
       "Bizkaia",
       "Burgos",
       "Cádiz",
@@ -804,12 +763,14 @@ const CANDIDACIES=[
       "Guadalajara",
       "Huesca",
       "Jaén",
-      "León",
       "Madrid",
+      "Navarra",
       "Palencia",
       "Segovia",
       "Sevilla",
+      "Soria",
       "Tarragona",
+      "Valencia",
       "Valladolid",
       "Zaragoza"
     ]
@@ -817,16 +778,11 @@ const CANDIDACIES=[
   {
     "name": "POR UN MUNDO MÁS JUSTO (MUNDO+JUSTO)",
     "provinces": [
-      "Almería",
-      "Navarra",
-      "Las Palmas",
-      "Pontevedra",
-      "Soria",
-      "Valencia"
+      "Las Palmas"
     ]
   },
   {
-    "name": "PROYECTO ALANTRE (P ALANTRE)",
+    "name": "PROYECTO ALANTRE (P. ALANTRE)",
     "provinces": [
       "León"
     ]
@@ -835,6 +791,13 @@ const CANDIDACIES=[
     "name": "RENACER RENAIXER (RRB)",
     "provinces": [
       "Valencia"
+    ]
+  },
+  {
+    "name": "SE ACABO LA FIESTA (SALF)",
+    "provinces": [
+      "La Rioja",
+      "Ceuta"
     ]
   },
   {
@@ -871,7 +834,6 @@ const CANDIDACIES=[
       "Palencia",
       "Las Palmas",
       "Pontevedra",
-      "La Rioja",
       "Salamanca",
       "Santa Cruz De Tenerife",
       "Segovia",
@@ -884,7 +846,6 @@ const CANDIDACIES=[
       "Valladolid",
       "Zamora",
       "Zaragoza",
-      "Ceuta",
       "Melilla"
     ]
   },
@@ -914,13 +875,7 @@ const CANDIDACIES=[
     ]
   },
   {
-    "name": "UNION CARTAGINENSE (UC)",
-    "provinces": [
-      "Murcia"
-    ]
-  },
-  {
-    "name": "UNIÓN DEL PUEBLO NAVARRO EN COALICIÓN CON PARTIDO POPULAR (UPN-PP)",
+    "name": "UNIÓN DEL PUEBLO NAVARRO EN COALICIÓN CON EL PARTIDO POPULAR (UPN-PP)",
     "provinces": [
       "Navarra"
     ]
@@ -934,7 +889,6 @@ const CANDIDACIES=[
   {
     "name": "VOX",
     "provinces": [
-      "Navarra",
       "La Rioja"
     ]
   },
@@ -973,6 +927,7 @@ const CANDIDACIES=[
       "Madrid",
       "Málaga",
       "Murcia",
+      "Navarra",
       "Ourense",
       "Palencia",
       "Las Palmas",
