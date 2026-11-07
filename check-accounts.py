@@ -70,6 +70,16 @@ class AccountTests(unittest.TestCase):
         self.assertEqual(self.call(route+'/delete',{},new_cookie)[0],200)
         self.assertEqual(self.call(route,cookie=new_cookie)[0],404)
 
+        new_payload = self.payload()
+        new_payload['requestId'] += '-40'
+        snapshot = new_payload['snapshot']
+        snapshot['version'] = 'test-40'
+        snapshot['questions'] += snapshot['questions'][:5]
+        snapshot['results'][0].update(matches=40, comparable=40, documented=40)
+        status, saved, _ = self.call('results',new_payload,new_cookie)
+        self.assertEqual(status,201)
+        self.assertEqual(self.call('results/'+saved['id'],cookie=new_cookie)[1]['snapshot'],snapshot)
+
     def test_admin_aggregates_and_permissions(self):
         self.server.accounts.create_admin('admin', 'test-admin-123')
         status, body, admin = self.call('login', {'username':'admin', 'password':'test-admin-123'})

@@ -122,14 +122,14 @@ class Accounts:
     def validate_snapshot(s):
         def text(v, maximum):
             return isinstance(v, str) and 0 < len(v) <= maximum
-        def number(v):
-            return type(v) is int and 0 <= v <= 35
         if not isinstance(s, dict) or set(s) != {'version','province','scope','questions','results'}:
             raise AccountError('Resultado no válido.')
         if not text(s['version'], 80) or not text(s['province'], 80) or s['scope'] not in ('all','votes'):
             raise AccountError('Resultado no válido.')
-        if not isinstance(s['questions'], list) or len(s['questions']) != 35 or not isinstance(s['results'], list) or not 0 <= len(s['results']) <= 100:
+        if not isinstance(s['questions'], list) or len(s['questions']) not in (35, 40) or not isinstance(s['results'], list) or not 0 <= len(s['results']) <= 100:
             raise AccountError('Resultado incompleto.')
+        def number(v):
+            return type(v) is int and 0 <= v <= len(s['questions'])
         for q in s['questions']:
             if not isinstance(q, dict) or set(q) != {'question','topic','answer'} or not text(q['question'], 2000) or not text(q['topic'], 200) or not (q['answer'] is None or type(q['answer']) is int and q['answer'] in (0,1,2)):
                 raise AccountError('Respuesta no válida.')

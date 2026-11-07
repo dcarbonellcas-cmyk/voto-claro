@@ -65,7 +65,9 @@ const cc=PARTIES.find(p=>p.name==='Coalición Canaria');
 cc.period='Declaración parlamentaria 2023 · ámbito canario';
 cc.positions[16]=evidence(0,'Defiende la gratuidad de guaguas y tranvías obtenida en la negociación presupuestaria. Referencia limitada a Canarias.','https://www.parcan.es/pub/ds.py/2023/6/9/','Coalición Canaria · Parlamento de Canarias · 12/09/2023 · David Toledo');
 PARTIES.push(
- {name:'Compromís',period:'Programa autonómico valenciano 2023 · referencia territorial',positions:positions([
+ {name:'Compromís',period:'Programa autonómico 2023 y propuestas estatales · referencia histórica',positions:positions([
+ [1,evidence(0,'Propone regular por ley los precios del alquiler. La medida se refiere a la Comunidad Valenciana.','https://28m.compromis.net/programa/habitatge','Compromís · autonómicas 2023 · Habitatge, medida 249')],
+ [30,evidence(0,'Propuso al Congreso mejorar y ampliar la red valenciana mediante el Plan de Cercanías 2025–2030.','https://compromis.net/35741/el-congres-aprova-el-pla-valencia-de-rodalies-a-proposta-de-compromis-que-busca-acabar-amb-els-retards-i-vertebrar-totes-les-comarques/','Compromís · iniciativa estatal · Plan Valenciano de Cercanías 2025–2030')],
  [19,evidence(0,'Propone incorporar profesionales de psicología en cada centro de salud y consultorio.','https://28m.compromis.net/programa/sanitat/770','Compromís · autonómicas 2023 · Sanitat, medida 38')],
  [22,evidence(0,'Propone reducir el alumnado por aula, especialmente en Secundaria y Bachillerato.','https://28m.compromis.net/programa/educacio','Compromís · autonómicas 2023 · Educació, medida 93')]
  ])},

@@ -14,7 +14,7 @@ function bindCandidateFilters(scoreCandidate=()=>null,initialProvince='Todas'){
   document.getElementById('candidate-count').textContent=`${rows.length} de ${CANDIDACIES.length} denominaciones proclamadas`;
   document.getElementById('candidate-list').innerHTML=rows.length?rows.map(c=>{
    const option=candidateReference(c.name),result=scoreCandidate(c.name);
-   const status=!option||!result||result.documented===0?'Comparación pendiente: faltan posiciones propias documentadas.':`${result.percent===null?'Sin porcentaje: sin respuestas comparables':formatPercent(result.percent)+' % de coincidencias'} · ${result.matches} coincidencias de ${result.denominator} preguntas. Datos comparables: ${result.comparable}/${result.denominator}. ${option.sourceName?'Referencia histórica de '+safeText(option.sourceName)+'; no equivale a su programa actual.':'Posiciones documentadas de esta candidatura.'}`;
+   const status=!option||!result||result.documented===0?'Comparación pendiente: faltan posiciones propias documentadas.':`${result.percent===null?'Sin porcentaje: sin respuestas comparables':formatPercent(result.percent)+' % de coincidencias'} · ${result.matches} coincidencias de ${result.denominator} preguntas. Datos comparables: ${result.comparable}/${result.denominator}. ${option.sourceName?'Referencia histórica de '+safeText(option.sourceName)+'; no equivale a su programa actual.':'Consulta las fuentes y su ámbito en la tarjeta de la candidatura.'}`;
    return `<li><strong>${safeText(c.name)}</strong><p>${safeText(c.provinces.join(' · '))}</p><span class="note">${status}</span></li>`;
   }).join(''):'<li>No se han encontrado candidaturas con estos filtros.</li>';
  }

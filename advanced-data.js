@@ -21,7 +21,7 @@ const ADVANCED_PARTIES=[
 ...NEW_DOCUMENTED_PARTIES.map(p=>({id:p.name,name:p.name,region:p.region}))
 ];
 // Índices estables del banco documental; este es el único test de la aplicación.
-const GENERAL_SELECTION=[0,2,3,7,8,9,11,12,13,14,16,17,18,19,20,21,22,25,27,29];
+const GENERAL_SELECTION=[0,1,2,3,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,25,27,29,30,31];
 const RECORD_BASE='https://www.congreso.es/webpublica/opendata/votaciones/Leg15/';
 const VOTE_SOURCE='https://queproponen.es/votaciones';
 const ALL_YES={PP:0,PSOE:0,VOX:0,Sumar:0,Podemos:0,ERC:0,Junts:0,PNV:0,Bildu:0,BNG:0,CC:0,UPN:0};
