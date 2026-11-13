@@ -4,8 +4,8 @@ function element(){return {innerHTML:'',dataset:{},focus(){},scrollIntoView(){},
 const context=vm.createContext({document:{getElementById:id=>{if(!elements.has(id))elements.set(id,element());return elements.get(id)}},window:{scrollTo(){}},clearTimeout,setTimeout,candidateCatalog:()=>'',bindCandidateFilters(){}});
 for(const file of ['questions.js','positions.js','expanded-positions.js','research-positions.js','party-logos.js','scoring.js','candidacies.js','advanced-data.js','election-options.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context);
 vm.runInContext(`
-if(GENERAL_SELECTION.length!==25||PARLIAMENT_QUESTIONS.length!==15)throw Error('Deben ser 25 + 15');
-if(new Set(GENERAL_SELECTION).size!==25||GENERAL_SELECTION.some(i=>!questions[i]))throw Error('Selección general inválida');
+if(GENERAL_SELECTION.length!==20||PARLIAMENT_QUESTIONS.length!==15)throw Error('Deben ser 20 + 15');
+if(new Set(GENERAL_SELECTION).size!==20||GENERAL_SELECTION.some(i=>!questions[i]))throw Error('Selección general inválida');
 if(new Set(PARLIAMENT_QUESTIONS.map(q=>q.id)).size!==15)throw Error('Votaciones duplicadas');
 if(PARTIES.some(p=>p.positions.length!==questions.length))throw Error('Posiciones desalineadas');
 if(ADVANCED_PARTIES.length!==19)throw Error('Referencias incompletas');
@@ -20,38 +20,38 @@ PARLIAMENT_QUESTIONS.forEach(q=>q.votes.Fixture=0);
 const source=fs.readFileSync('advanced.js','utf8').replace(/intro\(\);\s*\}\)\(\);\s*$/,'globalThis.testing={calculate,partyPosition,sourceRows,items,intro,quiz,results,recordCompletion,setAnswers:a=>{answers=a},setStep:i=>{step=i},setProvince:p=>{province=p}};\n})();');
 vm.runInContext(source,context);
 const t=context.testing;
-t.setAnswers(Array(40).fill(0));assert.equal(t.calculate({id:'Fixture'},'all').percent,100);
-t.setAnswers([...Array(7).fill(0),...Array(33).fill(1)]);assert.equal(t.calculate({id:'Fixture'},'all').percent,17.5);
-t.setAnswers(Array(40).fill(0));assert.equal(t.calculate({id:'Fixture'},'votes').percent,37.5);
+t.setAnswers(Array(35).fill(0));assert.equal(t.calculate({id:'Fixture'},'all').percent,100);
+t.setAnswers([...Array(7).fill(0),...Array(28).fill(1)]);assert.equal(t.calculate({id:'Fixture'},'all').percent,20);
+t.setAnswers(Array(35).fill(0));assert.equal(t.calculate({id:'Fixture'},'votes').percent,42.9);
 assert.equal(t.calculate({id:'Fixture'},'votes').total,15);
 assert.equal(t.calculate({id:'NoData'},'all').percent,null);
-t.setAnswers(Array(40).fill(null));assert.equal(t.calculate({id:'Fixture'},'all').percent,null);
-assert.equal(t.calculate({id:'Fixture'},'all').unanswered,40);
-t.setAnswers(Array(40).fill(2));assert.equal(t.calculate({id:'Fixture'},'all').total,15);
+t.setAnswers(Array(35).fill(null));assert.equal(t.calculate({id:'Fixture'},'all').percent,null);
+assert.equal(t.calculate({id:'Fixture'},'all').unanswered,35);
+t.setAnswers(Array(35).fill(2));assert.equal(t.calculate({id:'Fixture'},'all').total,15);
 const arts=t.items.find(q=>q.id==='artisticas');assert.equal(t.partyPosition({id:'VOX'},arts),null);assert.equal(t.partyPosition({id:'PP'},arts).answer,2);
 assert.equal(t.partyPosition({id:'Podemos'},t.items.find(q=>q.id==='clientela')),null);
 assert.ok(t.partyPosition({id:'CC'},t.items.find(q=>q.original===16)));
 for(const id of ['PACMA','Compromís','Más Madrid','PCTE','Adelante Andalucía','Nueva Canarias-BC','Ciudadanos']){assert.ok(t.items.some(q=>q.kind==='general'&&t.partyPosition({id},q)));assert.ok(t.items.filter(q=>q.kind==='vote').every(q=>t.partyPosition({id},q)===null))}
-t.setAnswers(Array(40).fill(0));assert.match(t.sourceRows(t.calculate({id:'VOX'},'all')),/Voto dividido: 32 en contra/);
-t.intro();assert.match(elements.get('app').innerHTML,/<strong>25<\/strong>/);
-for(let i=0;i<40;i++){t.setStep(i);t.quiz();assert.ok(elements.get('app').innerHTML.includes(`${i+1} de 40`))}
-t.results();assert.match(elements.get('app').innerHTML,/Revisar o cambiar mis 40 respuestas/);assert.match(elements.get('app').innerHTML,/Compromís/);
+t.setAnswers(Array(35).fill(0));assert.match(t.sourceRows(t.calculate({id:'VOX'},'all')),/Voto dividido: 32 en contra/);
+t.intro();assert.match(elements.get('app').innerHTML,/<strong>20<\/strong>/);
+for(let i=0;i<35;i++){t.setStep(i);t.quiz();assert.ok(elements.get('app').innerHTML.includes(`${i+1} de 35`))}
+t.results();assert.match(elements.get('app').innerHTML,/Revisar o cambiar mis 35 respuestas/);assert.match(elements.get('app').innerHTML,/Compromís/);
 const home=fs.readFileSync('app.js','utf8');assert.doesNotMatch(home,/Test básico|function quiz\(/);assert.match(home,/location.replace\('avanzado.html'\)/);
 for(const page of ['index.html','avanzado.html']){const html=fs.readFileSync(page,'utf8');for(const [,path] of html.matchAll(/(?:src|href)="([^"?#]+\.(?:js|css|svg))/g))assert.ok(fs.existsSync(path),path)}
-console.log('OK: 25 generales + 15 votaciones; base 40, omisiones, abstenciones, voto dividido, referencias propias, 40 pantallas y resultados.');
+console.log('OK: 20 generales + 15 votaciones; base 35, omisiones, abstenciones, voto dividido, referencias propias, 35 pantallas y resultados.');
 
 // La portada utiliza la misma selección y conserva las rutas de entrada.
 vm.runInContext("globalThis.location={hash:'#inicio',replace:url=>{globalThis.redirected=url}};window.addEventListener=()=>{};document.addEventListener=()=>{}",context);
 vm.runInContext(home,context);
-assert.match(elements.get('app').innerHTML,/25 preguntas generales y 15 votaciones/);
-for(const hash of ['#voto-indeciso','#no-se-que-votar']){context.location.hash=hash;vm.runInContext('route()',context);assert.match(elements.get('app').innerHTML,/25 generales \+ 15 votaciones/);assert.doesNotMatch(elements.get('app').innerHTML,/Test básico/)}
+assert.match(elements.get('app').innerHTML,/20 preguntas generales y 15 votaciones/);
+for(const hash of ['#voto-indeciso','#no-se-que-votar']){context.location.hash=hash;vm.runInContext('route()',context);assert.match(elements.get('app').innerHTML,/20 generales \+ 15 votaciones/);assert.doesNotMatch(elements.get('app').innerHTML,/Test básico/)}
 context.location.hash='#test';vm.runInContext('route()',context);assert.equal(context.redirected,'avanzado.html');
 console.log('OK: portada, las dos entradas al test y redirección del enlace antiguo.');
 
 vm.runInContext(`
 if(RESEARCH_POSITIONS.length!==26)throw Error('Ampliación documental incompleta');
 for(const [name,index] of RESEARCH_POSITIONS){
- if(!GENERAL_SELECTION.includes(index))throw Error('Evidencia fuera del test');
+ if(!questions[index])throw Error('Evidencia fuera del banco documental');
  if(!PARTIES.find(p=>p.name===name)?.positions[index]?.reviewedAt)throw Error('Falta fecha de revisión');
 }
 for(const p of ADVANCED_PARTIES)if(!PARTY_LOGOS[p.id])throw Error('Falta logotipo: '+p.id);
@@ -76,7 +76,7 @@ for(const name of ['Alicante','Castellón','Valencia'])if(electionOptionsForProv
 for(const name of ['Las Palmas','Santa Cruz De Tenerife'])if(electionOptionsForProvince(name).some(p=>p.id==='Podemos'))throw Error('Podemos va en UPC en Canarias');
 `,context);
 const getOption=id=>vm.runInContext('ELECTION_OPTIONS.find(p=>p.id==='+JSON.stringify(id)+')',context);
-t.setAnswers(Array(40).fill(0));
+t.setAnswers(Array(35).fill(0));
 const sumar={id:'Sumar'};
 for(const [id,ownGeneral] of [['FA',[11,30]],['AraMés-FA',[1]]]){
  const option=getOption(id);
@@ -91,14 +91,14 @@ for(const [id,ownGeneral] of [['FA',[11,30]],['AraMés-FA',[1]]]){
    if(historical)assert.match(row.pos.component,/^Sumar/);
   }
  }
- assert.equal(result.componentSources,23);
+ assert.equal(result.componentSources,result.rows.filter(row=>!(row.q.kind==='general'&&ownGeneral.includes(row.q.original))&&t.partyPosition(sumar,row.q)).length);
  assert.equal(t.calculate(option,'votes').total,15);
  assert.match(t.sourceRows(result),/Referencia histórica de Sumar \(grupo parlamentario\)/);
 }
 const frontValencia=t.calculate(getOption('Front Valencià'),'all');
-assert.equal(frontValencia.componentSources,7);
-assert.equal(frontValencia.matches,8);
-assert.equal(frontValencia.percent,20);
+assert.equal(frontValencia.componentSources,t.items.filter(q=>t.partyPosition({id:'Compromís'},q)).length);
+assert.equal(frontValencia.matches,frontValencia.componentSources+1);
+assert.equal(frontValencia.percent,Math.round(frontValencia.matches/35*1000)/10);
 assert.match(t.sourceRows(frontValencia),/Referencia histórica de Compromís/);
 assert.equal(t.calculate(getOption('Front Valencià'),'votes').percent,null);
 for(const id of ['CC-1CAN','UPC','PSC','D21']){
@@ -137,11 +137,11 @@ console.log('OK: catálogo y resultados comparten candidaturas y provincia; sin 
  const calls=[];
  context.crypto={randomUUID:()=>require('node:crypto').randomUUID()};
  context.Account={user:{username:'fixture'},ready:Promise.resolve(),request:async(path,data)=>{calls.push({path,data});return {id:'saved'}},login:async()=>null};
- t.setProvince('Todas');t.setAnswers(Array(40).fill(0));t.results();
+ t.setProvince('Todas');t.setAnswers(Array(35).fill(0));t.results();
  await elements.get('save-result').onclick();
  assert.equal(calls.length,1);assert.equal(calls[0].path,'results');
  const snapshot=calls[0].data.snapshot;
- assert.equal(snapshot.questions.length,40);assert.equal(snapshot.results.length,21);
+ assert.equal(snapshot.questions.length,35);assert.equal(snapshot.results.length,21);
  assert.equal(snapshot.province,'Todas');assert.equal(snapshot.scope,'all');
  const pp=snapshot.results.find(p=>p.id==='PP'),computed=t.calculate(getOption('PP'));
  assert.equal(pp.matches,computed.matches);assert.equal(pp.comparable,computed.total);
@@ -154,5 +154,5 @@ console.log('OK: catálogo y resultados comparten candidaturas y provincia; sin 
  await t.recordCompletion();await t.recordCompletion();assert.equal(completions.length,1);assert.equal(completions[0].options.credentials,'omit');
  const anonymous=JSON.parse(completions[0].options.body);assert.deepEqual(Object.keys(anonymous).sort(),['leaders','receipt']);assert.ok(anonymous.leaders.length);
  console.log('OK: recuento de finalización sin cuenta, respuestas ni cookies; sin duplicados.');
- console.log('OK: guardado voluntario, snapshot de 40 respuestas y puntuaciones, filtros y prevención de duplicados.');
+ console.log('OK: guardado voluntario, snapshot de 35 respuestas y puntuaciones, filtros y prevención de duplicados.');
 })().catch(error=>{console.error(error);process.exitCode=1});

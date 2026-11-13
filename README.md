@@ -4,7 +4,7 @@ Aplicación en español para explorar preferencias políticas y contrastarlas co
 
 ## Un único test
 
-El test básico se ha retirado. La portada ofrece solamente el avanzado: **25 preguntas generales + 15 votaciones de la XV Legislatura (2024–2025)**. El enlace antiguo `index.html#test` redirige a `avanzado.html`.
+El test básico se ha retirado. La portada ofrece solamente el avanzado: **20 preguntas generales + 15 votaciones de la XV Legislatura (2024–2025)**. El enlace antiguo `index.html#test` redirige a `avanzado.html`.
 
 Las siete votaciones añadidas cubren enseñanzas artísticas, desperdicio alimentario, bomberos forestales, derecho de defensa, organización de la justicia, atención a la clientela y permisos de nacimiento. Cada ficha identifica fecha, trámite, contexto y fuentes. No se confunde tramitar un proyecto con aprobar definitivamente una ley.
 
@@ -20,7 +20,7 @@ Las propuestas de la candidatura tienen prioridad. Frente Amplio y AraMés–Fro
 
 ## Puntuación
 
-Coincidencias exactas / **40** × 100, redondeado a un decimal al final. Cada coincidencia suma 2,5 puntos porcentuales. «Solo votaciones» conserva la base de 40 y su máximo es 15/40 = 37,5 %.
+Coincidencias exactas / **35** × 100, redondeado a un decimal al final. Cada coincidencia suma aproximadamente 2,86 puntos porcentuales. «Solo votaciones» conserva la base de 35 y su máximo es 15/35 = 42,9 %.
 
 Los datos ausentes y las respuestas omitidas no suman, pero se distinguen de los desacuerdos. Sin respuestas comparables no se muestra porcentaje. Una abstención parlamentaria solo coincide con otra abstención. La neutralidad en preguntas generales no puntúa. Los votos divididos localizados quedan sin una postura única (ejemplo: VOX en enseñanzas artísticas, 32 en contra y una abstención).
 
@@ -28,7 +28,7 @@ La documentación varía entre partidos: con menos datos, su techo de puntuació
 
 ## Datos y fuentes
 
-`questions.js` conserva un banco documental de 32 preguntas con índices estables para las evidencias anteriores. **Solo las 25 de `GENERAL_SELECTION` se presentan al usuario.** `positions.js`, `expanded-positions.js` y `research-positions.js` contienen las posiciones; `advanced-data.js`, las votaciones y la selección del test. `election-options.js` define las identidades electorales, sus provincias y la evidencia propia de coaliciones. Las identidades históricas permanecen disponibles como fuentes, sin aparecer automáticamente como candidaturas.
+`questions.js` conserva un banco documental de 32 preguntas con índices estables para las evidencias anteriores. **Solo las 20 de `GENERAL_SELECTION` se presentan al usuario.** `positions.js`, `expanded-positions.js` y `research-positions.js` contienen las posiciones; `advanced-data.js`, las votaciones y la selección del test. `election-options.js` define las identidades electorales, sus provincias y la evidencia propia de coaliciones. Las identidades históricas permanecen disponibles como fuentes, sin aparecer automáticamente como candidaturas.
 
 Revisión: 03/11/2026. Véase [FUENTES-2026-11-03.md](FUENTES-2026-11-03.md) para las incorporaciones y los límites. Se usan documentos de 2022–2026; no se presentan como programas actuales de próximas elecciones. Las tablas parlamentarias utilizan fuentes secundarias identificadas y documentos oficiales para los trámites y resultados. Las descargas nominales oficiales consultadas devolvieron 403 o no estuvieron disponibles; no se afirma una auditoría individual de todos los diputados. No se asigna el voto del Grupo Mixto a sus partidos.
 
@@ -48,7 +48,7 @@ Abre http://127.0.0.1:8089/index.html. El código en GitHub no supone un desplie
 node check-scoring.cjs
 ```
 
-Comprueba la selección 25+15, la puntuación sobre 40, omisiones, neutralidad y abstenciones, votos divididos, falta de evidencia, referencias propias y renderizado de las 40 preguntas y resultados. No sustituye una revisión visual en navegador.
+Comprueba la selección 20+15, la puntuación sobre 35, omisiones, neutralidad y abstenciones, votos divididos, falta de evidencia, referencias propias y renderizado de las 35 preguntas y resultados. No sustituye una revisión visual en navegador.
 
 Para estilos, edita `styles.scss` y ejecuta `node build-styles.mjs`; el script sincroniza sintaxis compatible con CSS, no compila Sass.
 
@@ -67,7 +67,7 @@ Revisión electoral del 05/11/2026: las comprobaciones incluyen ausencia de las 
 
 ## Cuentas e historial personal
 
-El enlace «Iniciar sesión» permite crear una cuenta con usuario (3–32 caracteres) y contraseña (12–128). No se pide correo; esta versión no ofrece recuperación de contraseña. El test sigue disponible sin cuenta. Al terminar, «Guardar resultado» conserva explícitamente las respuestas, puntuaciones, cobertura, provincia, filtro y versión documental. «Mi cuenta» permite consultar y eliminar cada resultado. Las consultas muestran la instantánea original, sin recalcularla cuando cambian los datos de partidos. Los resultados antiguos conservan su base de 35 preguntas.
+El enlace «Iniciar sesión» permite crear una cuenta con usuario (3–32 caracteres) y contraseña (12–128). No se pide correo; esta versión no ofrece recuperación de contraseña. El test sigue disponible sin cuenta. Al terminar, «Guardar resultado» conserva explícitamente las respuestas, puntuaciones, cobertura, provincia, filtro y versión documental. «Mi cuenta» permite consultar y eliminar cada resultado. Las consultas muestran la instantánea original, sin recalcularla cuando cambian los datos de partidos. Los resultados guardados conservan su base original de 35 o 40 preguntas y sus puntuaciones, sin recalcularse.
 
 Las cuentas y resultados están en `.data/accounts.sqlite3`, excluida de Git y de la carpeta pública. Haz copias de seguridad privadas de esta base para conservarlos en un despliegue; cambiar de ordenador sin migrarla no transfiere las cuentas. `VOTO_CLARO_ACCOUNTS_DB` permite elegir una ubicación persistente. Las contraseñas usan scrypt con sal individual; las sesiones duran siete días, se revocan al salir y usan cookies HttpOnly y SameSite=Strict. No se guardan credenciales ni resultados en localStorage. Las rutas de historial comprueban la propiedad en el servidor y los cambios requieren solicitudes JSON del mismo origen. Hay límite de intentos de acceso. No se registran contraseñas, respuestas ni direcciones IP en logs.
 
@@ -83,3 +83,6 @@ Pruebas adicionales: `python3 -B check-accounts.py` verifica registro, login, lo
 Al completar el test se envían, sin cookies, un recibo aleatorio de deduplicación y las opciones que empatan en el máximo de coincidencias sobre el total de preguntas de cada versión, antes de filtros. No se envían respuestas, usuario, porcentajes individuales, provincia ni fecha. En la base de estadísticas solo se mantienen contadores por opción y recibos independientes, sin relación entre ellos. Los grupos con menos de cinco apariciones no se muestran. No se consultan historiales privados para construir el panel ni se reconstruyen tests anteriores. Las estadísticas cuentan tests, no personas únicas, y los datos enviados por el navegador no están verificados independientemente en el servidor.
 
 El panel reutiliza el contador existente de «No quiero votar». No se interpreta como desacuerdo con la política actual porque el motivo no se ha preguntado. Los empates pueden hacer que la suma por opciones supere el total de tests. Los tests sin respuestas comparables se contabilizan aparte. El aviso de recuento anónimo aparece antes de empezar el test.
+
+
+Revisión del 13/11/2026: el recorrido vuelve a 20 generales + 15 votaciones. Se retiran de la selección vivienda pública (11), salud mental (19), becas (21), atención en el aula (22) y emancipación y alquiler (29), manteniendo vivienda, sanidad y educación en otras preguntas. El banco, las evidencias, las candidaturas y las quince votaciones se conservan. Los nuevos porcentajes usan 35 preguntas; no se garantiza que coincidan con los de la selección anterior. El historial mantiene sus instantáneas originales.
